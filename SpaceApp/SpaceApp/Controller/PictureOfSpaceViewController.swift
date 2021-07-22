@@ -24,7 +24,7 @@ final class PictureOfSpaceViewController: BaseViewController {
 	lazy var mainTitle: UILabel = {
 		let mainLabel = UILabel()
 		mainLabel.translatesAutoresizingMaskIntoConstraints = false
-		mainLabel.text = "Astronomy Picture of the Day"
+		mainLabel.text = "Space Photo of the Day:"
 		mainLabel.font = UIFont.boldSystemFont(ofSize:30)
 //		mainLabel.textColor = .white
 		return mainLabel
@@ -44,7 +44,7 @@ final class PictureOfSpaceViewController: BaseViewController {
 		explanationLabel.translatesAutoresizingMaskIntoConstraints = false
 		explanationLabel.text = "\(explanation)"
 		explanationLabel.textAlignment = .justified
-		explanationLabel.font = UIFont.boldSystemFont(ofSize:15)
+		explanationLabel.font = UIFont.boldSystemFont(ofSize:16)
 //		explanationLabel.textColor = .white
 		explanationLabel.numberOfLines = .min
 		return explanationLabel

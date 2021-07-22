@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias GetNASAAPIResponse = Result<[GetDayDataResponse], NetworkServiceError>
+typealias GetNASAAPIResponse = Result<[SpacePhotoDataResponse], NetworkServiceError>
 
 protocol NASANetworkServiceProtocol {
 	func getDataFromAPI(with completion: @escaping (GetNASAAPIResponse) ->Void)

@@ -6,11 +6,13 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewController: BaseViewController {
 
 	private let networkService: NASANetworkServiceProtocol
-	private var dataSource = [GetDayDataResponse]()
+	private var dataSource = [SpacePhotoDataResponse]()
+	private var coreDataStack = Container.shared.coreDataStack
 
 	init(networkService: NASANetworkServiceProtocol) {
 		self.networkService = networkService
@@ -27,6 +29,7 @@ class ViewController: BaseViewController {
 		button.setImage(UIImage(systemName: "info.circle.fill"), for: .normal)
 		button.tintColor = .black
 		button.addTarget(self, action: #selector(aboutAppButtonTapped), for: .touchUpInside)
+		button.translatesAutoresizingMaskIntoConstraints = false
 		return button
 	}()
 
@@ -36,22 +39,34 @@ class ViewController: BaseViewController {
 		button.setImage(UIImage(systemName: "clock.fill"), for: .normal)
 		button.tintColor = .black
 		button.addTarget(self, action: #selector(historyButtonTapped), for: .touchUpInside)
+		button.translatesAutoresizingMaskIntoConstraints = false
 		return button
+	}()
+
+	// Header image
+	private lazy var spaceshipImageView: UIImageView = {
+		let image = UIImage(named: "space")
+		let imageView = UIImageView(image: image)
+		imageView.contentMode = .scaleAspectFill
+		imageView.translatesAutoresizingMaskIntoConstraints = false
+		return imageView
 	}()
 
 	private lazy var mainLabel: UILabel = {
 		let label = UILabel()
-		label.text = "Click on title to see a random photo from space"
+		label.text = "Click on title to see a photo from space"
 		label.translatesAutoresizingMaskIntoConstraints = false
 		label.numberOfLines = 3
 		label.textAlignment = .center
+		label.textColor = .white
 		label.font = .boldSystemFont(ofSize: 34)
+		label.translatesAutoresizingMaskIntoConstraints = false
 		return label
 	}()
 
 	private lazy var tableView: UITableView = {
 		let tableView = UITableView()
-		tableView.register(DateCell.self, forCellReuseIdentifier: DateCell.identifier)
+		tableView.register(SpacePhotoCell.self, forCellReuseIdentifier: SpacePhotoCell.identifier)
 		tableView.dataSource = self
 		tableView.delegate = self
 		tableView.showsVerticalScrollIndicator = false
@@ -65,9 +80,9 @@ class ViewController: BaseViewController {
 
 		navigationItem.leftBarButtonItem = UIBarButtonItem(customView: aboutAppButton)
 		navigationItem.rightBarButtonItem = UIBarButtonItem(customView: historyButton)
-		title = "NASA Pic Of Random Day"
 		setAutoLayout()
 		loadData()
+//		coreDataStack.deleteAll()
 	}
 
 	deinit {
@@ -75,6 +90,14 @@ class ViewController: BaseViewController {
 	}
 
 	private func setAutoLayout() {
+		view.addSubview(spaceshipImageView)
+		let spaceshipImageViewConstraints = ([
+			spaceshipImageView.topAnchor.constraint(equalTo: view.topAnchor),
+			spaceshipImageView.bottomAnchor.constraint(equalTo: tableView.topAnchor),
+			spaceshipImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+			spaceshipImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+		])
+
 		view.addSubview(tableView)
 		let tableViewConstraints = ([
 			tableView.topAnchor.constraint(equalTo: view.centerYAnchor),
@@ -83,7 +106,7 @@ class ViewController: BaseViewController {
 			tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
 		])
 
-		view.addSubview(mainLabel)
+		spaceshipImageView.addSubview(mainLabel)
 		let mainLabelConstraints = ([
 			mainLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
 			mainLabel.bottomAnchor.constraint(equalTo: tableView.topAnchor),
@@ -91,6 +114,7 @@ class ViewController: BaseViewController {
 			mainLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50)
 		])
 
+		NSLayoutConstraint.activate(spaceshipImageViewConstraints)
 		NSLayoutConstraint.activate(tableViewConstraints)
 		NSLayoutConstraint.activate(mainLabelConstraints)
 	}
@@ -149,8 +173,8 @@ extension ViewController: UITableViewDataSource {
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: DateCell.identifier, for: indexPath)
-		(cell as? DateCell)?.configure(with: dataSource[indexPath.row])
+		let cell = tableView.dequeueReusableCell(withIdentifier: SpacePhotoCell.identifier, for: indexPath)
+		(cell as? SpacePhotoCell)?.configure(with: dataSource[indexPath.row])
 		return cell
 	}
 }
@@ -166,6 +190,28 @@ extension ViewController: UITableViewDelegate {
 
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath,animated : true)
+
+		// синхронное выполнение сохранения инфы о просмотренном изображении в CD
+		coreDataStack.backgroundContext.performAndWait {
+			let spacePhoto = MOSpacePhoto(context: coreDataStack.backgroundContext)
+			spacePhoto.date = "\(dataSource[indexPath.row].date)"
+			spacePhoto.explanation = "\(dataSource[indexPath.row].explanation)"
+			spacePhoto.title = "\(dataSource[indexPath.row].title)"
+			spacePhoto.url = "\(dataSource[indexPath.row].url)"
+			try? coreDataStack.backgroundContext.save()
+
+			// DEBUG PRINT
+			debugPrint("New - \(spacePhoto.title)")
+			let context = coreDataStack.viewContext
+			context.performAndWait {
+				let request = NSFetchRequest<MOSpacePhoto>(entityName: "MOSpacePhoto")
+				let result = try? request.execute()
+				result?.forEach {
+					debugPrint($0.title)
+				}
+			}
+		}
+
 		let pictureOfSpaceViewController = PictureOfSpaceViewController(networkService: networkService, imageUrl: dataSource[indexPath.row].url, date: dataSource[indexPath.row].date, explanation: dataSource[indexPath.row].explanation)
 		navigationController?.pushViewController(pictureOfSpaceViewController, animated: true)
 	}

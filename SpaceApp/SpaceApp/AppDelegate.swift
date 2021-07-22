@@ -15,6 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		window = UIWindow(frame: UIScreen.main.bounds)
+		let coreDataStack = Container.shared.coreDataStack
+		coreDataStack.load()
 
 		let service = NASANetworkService()
 //		let mainVC = ViewController(networkService: service)
@@ -25,6 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //		tabBarVC.setViewControllers([historyVC, mainVC, aboutVC], animated: true)
 //		window?.rootViewController = tabBarVC
 		window?.rootViewController = UINavigationController(rootViewController: ViewController(networkService: service))
+//		window?.rootViewController = UINavigationController(rootViewController: StartViewController())
 		window?.makeKeyAndVisible()
 		return true
 	}

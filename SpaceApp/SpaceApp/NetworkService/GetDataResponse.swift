@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GetDayDataResponse: Decodable {
+struct SpacePhotoDataResponse: Decodable {
 	let date: String
 	let explanation: String
 	let title: String

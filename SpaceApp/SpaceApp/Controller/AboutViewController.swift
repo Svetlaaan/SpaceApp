@@ -21,11 +21,11 @@ final class AboutViewController: BaseViewController {
 
 	private lazy var aboutLabel: UILabel = {
 		let label = UILabel()
-		label.text = """
-Odio contentiones sed cu, usu commodo prompta prodesset id. Vivendum dignissim conceptam pri ut, ei vel partem audiam sapientem. Vel in dicant cetero phaedrum, usu populo interesset cu, eum ea facer nostrum pericula. Tation delenit percipitur at vix. Ius dicat feugiat no, vix cu modo dicat principes.
-		Vel in dicant cetero phaedrum, usu populo interesset cu, eum ea facer nostrum pericula. Nec labore cetero theophrastus no, ei vero facer veritus nec. Ius dicat feugiat no, vix cu modo dicat principes. Eam id posse dictas voluptua, veniam laoreet oportere no mea, quis regione suscipiantur mea an.
-  Magna copiosae apeirian ius at. Vel in dicant cetero phaedrum, usu populo interesset cu, eum ea facer nostrum pericula. Nec labore cetero theophrastus no, ei vero facer veritus nec. Eu eam dolores lobortis percipitur, quo te equidem deleniti disputando. . Sale liber et vel.
-"""
+//		label.text = """
+//Odio contentiones sed cu, usu commodo prompta prodesset id. Vivendum dignissim conceptam pri ut, ei vel partem audiam sapientem. Vel in dicant cetero phaedrum, usu populo interesset cu, eum ea facer nostrum pericula. Tation delenit percipitur at vix. Ius dicat feugiat no, vix cu modo dicat principes.
+//		Vel in dicant cetero phaedrum, usu populo interesset cu, eum ea facer nostrum pericula. Nec labore cetero theophrastus no, ei vero facer veritus nec. Ius dicat feugiat no, vix cu modo dicat principes. Eam id posse dictas voluptua, veniam laoreet oportere no mea, quis regione suscipiantur mea an.
+//  Magna copiosae apeirian ius at. Vel in dicant cetero phaedrum, usu populo interesset cu, eum ea facer nostrum pericula. Nec labore cetero theophrastus no, ei vero facer veritus nec. Eu eam dolores lobortis percipitur, quo te equidem deleniti disputando. . Sale liber et vel.
+//"""
 		label.numberOfLines = .max
 		label.textColor = .white
 		label.textAlignment = .justified
@@ -49,7 +49,7 @@ Odio contentiones sed cu, usu commodo prompta prodesset id. Vivendum dignissim c
 
 		title = "About app"
 		setAutoLayout()
-		startAnimation()
+//		startAnimation()
 	}
 
 	private func setAutoLayout() {
@@ -58,6 +58,7 @@ Odio contentiones sed cu, usu commodo prompta prodesset id. Vivendum dignissim c
 		backgroundImageView.addSubview(aboutLabel)
 		let aboutLabelConstraints = ([
 			aboutLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+			aboutLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: view.frame.height),
 			aboutLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
 			aboutLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50)
 		])
@@ -86,7 +87,7 @@ Odio contentiones sed cu, usu commodo prompta prodesset id. Vivendum dignissim c
 		textAnimation.repeatCount = 0
 		aboutLabel.layer.add(textAnimation, forKey: "textPosition")
 
-		Timer.scheduledTimer(timeInterval: TimeInterval(duration + 2.0), target: self, selector: #selector(contactInfo), userInfo: nil, repeats: false)
+		Timer.scheduledTimer(timeInterval: TimeInterval(duration + 1.0), target: self, selector: #selector(contactInfo), userInfo: nil, repeats: false)
 	}
 
 	@objc func contactInfo() {

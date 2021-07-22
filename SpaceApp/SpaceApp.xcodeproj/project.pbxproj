@@ -19,12 +19,19 @@
 		FA1662B926A72C6C00450794 /* PictureOfSpaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1662B826A72C6C00450794 /* PictureOfSpaceViewController.swift */; };
 		FA1662BE26A72C8B00450794 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1662BD26A72C8B00450794 /* AboutViewController.swift */; };
 		FA1662C326A72CA700450794 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1662C226A72CA700450794 /* HistoryViewController.swift */; };
-		FA1662C826A72CC500450794 /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1662C726A72CC500450794 /* DateCell.swift */; };
+		FA1662C826A72CC500450794 /* SpacePhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1662C726A72CC500450794 /* SpacePhotoCell.swift */; };
 		FA1662CD26A72CE000450794 /* NASANetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1662CC26A72CE000450794 /* NASANetworkService.swift */; };
 		FA1662D226A72CFA00450794 /* NASANetworkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1662D126A72CFA00450794 /* NASANetworkServiceProtocol.swift */; };
 		FA1662D726A72D1200450794 /* GetDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1662D626A72D1200450794 /* GetDataResponse.swift */; };
 		FA1662DC26A72D2600450794 /* NetworkServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1662DB26A72D2600450794 /* NetworkServiceError.swift */; };
-		FA1662E126A72D3F00450794 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1662E026A72D3F00450794 /* Constants.swift */; };
+		FA1662E126A72D3F00450794 /* NetworkServiceConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1662E026A72D3F00450794 /* NetworkServiceConstants.swift */; };
+		FA1662F226A852FC00450794 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1662F126A852FC00450794 /* StartViewController.swift */; };
+		FA1662F726A8536B00450794 /* BackgroundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1662F626A8536B00450794 /* BackgroundImageView.swift */; };
+		FA16630B26A9A29500450794 /* MOSpacePhoto+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA16630926A9A29500450794 /* MOSpacePhoto+CoreDataClass.swift */; };
+		FA16630C26A9A29500450794 /* MOSpacePhoto+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA16630A26A9A29500450794 /* MOSpacePhoto+CoreDataProperties.swift */; };
+		FA16631526A9A5B000450794 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA16631426A9A5B000450794 /* CoreDataStack.swift */; };
+		FA16631D26A9CAC300450794 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA16631C26A9CAC300450794 /* Container.swift */; };
+		FA16632226A9E39600450794 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA16632126A9E39600450794 /* TableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,12 +70,19 @@
 		FA1662B826A72C6C00450794 /* PictureOfSpaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureOfSpaceViewController.swift; sourceTree = "<group>"; };
 		FA1662BD26A72C8B00450794 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		FA1662C226A72CA700450794 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
-		FA1662C726A72CC500450794 /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
+		FA1662C726A72CC500450794 /* SpacePhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacePhotoCell.swift; sourceTree = "<group>"; };
 		FA1662CC26A72CE000450794 /* NASANetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NASANetworkService.swift; sourceTree = "<group>"; };
 		FA1662D126A72CFA00450794 /* NASANetworkServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NASANetworkServiceProtocol.swift; sourceTree = "<group>"; };
 		FA1662D626A72D1200450794 /* GetDataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDataResponse.swift; sourceTree = "<group>"; };
 		FA1662DB26A72D2600450794 /* NetworkServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceError.swift; sourceTree = "<group>"; };
-		FA1662E026A72D3F00450794 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		FA1662E026A72D3F00450794 /* NetworkServiceConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceConstants.swift; sourceTree = "<group>"; };
+		FA1662F126A852FC00450794 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
+		FA1662F626A8536B00450794 /* BackgroundImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundImageView.swift; sourceTree = "<group>"; };
+		FA16630926A9A29500450794 /* MOSpacePhoto+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MOSpacePhoto+CoreDataClass.swift"; sourceTree = "<group>"; };
+		FA16630A26A9A29500450794 /* MOSpacePhoto+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MOSpacePhoto+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		FA16631426A9A5B000450794 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		FA16631C26A9CAC300450794 /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
+		FA16632126A9E39600450794 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,7 +133,9 @@
 		FA16625A26A72ABF00450794 /* SpaceApp */ = {
 			isa = PBXGroup;
 			children = (
-				FA1662A526A72BFF00450794 /* Model */,
+				FA16631026A9A2B300450794 /* CoreData */,
+				FA16630526A88F6D00450794 /* Spinner */,
+				FA1662A526A72BFF00450794 /* NetworkService */,
 				FA1662A426A72BF700450794 /* View */,
 				FA1662A326A72BED00450794 /* Controller */,
 				FA16625B26A72ABF00450794 /* AppDelegate.swift */,
@@ -127,7 +143,6 @@
 				FA16626726A72AC200450794 /* Assets.xcassets */,
 				FA16626C26A72AC200450794 /* Info.plist */,
 				FA16626426A72ABF00450794 /* SpaceApp.xcdatamodeld */,
-				FA1662E026A72D3F00450794 /* Constants.swift */,
 			);
 			path = SpaceApp;
 			sourceTree = "<group>";
@@ -154,11 +169,11 @@
 			isa = PBXGroup;
 			children = (
 				FA1662A626A72C1000450794 /* ViewController.swift */,
-				FA1662AE26A72C3300450794 /* SpinnerViewController.swift */,
-				FA1662B326A72C5500450794 /* BaseViewController.swift */,
 				FA1662B826A72C6C00450794 /* PictureOfSpaceViewController.swift */,
 				FA1662BD26A72C8B00450794 /* AboutViewController.swift */,
 				FA1662C226A72CA700450794 /* HistoryViewController.swift */,
+				FA1662F126A852FC00450794 /* StartViewController.swift */,
+				FA16632126A9E39600450794 /* TableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -166,20 +181,42 @@
 		FA1662A426A72BF700450794 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				FA1662C726A72CC500450794 /* DateCell.swift */,
+				FA1662C726A72CC500450794 /* SpacePhotoCell.swift */,
+				FA1662F626A8536B00450794 /* BackgroundImageView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
 		};
-		FA1662A526A72BFF00450794 /* Model */ = {
+		FA1662A526A72BFF00450794 /* NetworkService */ = {
 			isa = PBXGroup;
 			children = (
 				FA1662CC26A72CE000450794 /* NASANetworkService.swift */,
 				FA1662D126A72CFA00450794 /* NASANetworkServiceProtocol.swift */,
 				FA1662D626A72D1200450794 /* GetDataResponse.swift */,
 				FA1662DB26A72D2600450794 /* NetworkServiceError.swift */,
+				FA1662E026A72D3F00450794 /* NetworkServiceConstants.swift */,
 			);
-			path = Model;
+			path = NetworkService;
+			sourceTree = "<group>";
+		};
+		FA16630526A88F6D00450794 /* Spinner */ = {
+			isa = PBXGroup;
+			children = (
+				FA1662AE26A72C3300450794 /* SpinnerViewController.swift */,
+				FA1662B326A72C5500450794 /* BaseViewController.swift */,
+			);
+			path = Spinner;
+			sourceTree = "<group>";
+		};
+		FA16631026A9A2B300450794 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				FA16630926A9A29500450794 /* MOSpacePhoto+CoreDataClass.swift */,
+				FA16630A26A9A29500450794 /* MOSpacePhoto+CoreDataProperties.swift */,
+				FA16631426A9A5B000450794 /* CoreDataStack.swift */,
+				FA16631C26A9CAC300450794 /* Container.swift */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -310,17 +347,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA16632226A9E39600450794 /* TableViewController.swift in Sources */,
+				FA16631526A9A5B000450794 /* CoreDataStack.swift in Sources */,
 				FA16625C26A72ABF00450794 /* AppDelegate.swift in Sources */,
-				FA1662C826A72CC500450794 /* DateCell.swift in Sources */,
+				FA16630C26A9A29500450794 /* MOSpacePhoto+CoreDataProperties.swift in Sources */,
+				FA1662C826A72CC500450794 /* SpacePhotoCell.swift in Sources */,
 				FA1662B926A72C6C00450794 /* PictureOfSpaceViewController.swift in Sources */,
 				FA16626626A72ABF00450794 /* SpaceApp.xcdatamodeld in Sources */,
 				FA1662A726A72C1000450794 /* ViewController.swift in Sources */,
-				FA1662E126A72D3F00450794 /* Constants.swift in Sources */,
+				FA1662E126A72D3F00450794 /* NetworkServiceConstants.swift in Sources */,
 				FA16625E26A72ABF00450794 /* SceneDelegate.swift in Sources */,
+				FA16631D26A9CAC300450794 /* Container.swift in Sources */,
+				FA16630B26A9A29500450794 /* MOSpacePhoto+CoreDataClass.swift in Sources */,
 				FA1662AF26A72C3300450794 /* SpinnerViewController.swift in Sources */,
 				FA1662DC26A72D2600450794 /* NetworkServiceError.swift in Sources */,
 				FA1662C326A72CA700450794 /* HistoryViewController.swift in Sources */,
+				FA1662F226A852FC00450794 /* StartViewController.swift in Sources */,
 				FA1662BE26A72C8B00450794 /* AboutViewController.swift in Sources */,
+				FA1662F726A8536B00450794 /* BackgroundImageView.swift in Sources */,
 				FA1662CD26A72CE000450794 /* NASANetworkService.swift in Sources */,
 				FA1662D226A72CFA00450794 /* NASANetworkServiceProtocol.swift in Sources */,
 				FA1662D726A72D1200450794 /* GetDataResponse.swift in Sources */,

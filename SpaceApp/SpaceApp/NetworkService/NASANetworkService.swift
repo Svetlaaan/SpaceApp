@@ -33,7 +33,7 @@ extension NASANetworkService: NASANetworkServiceProtocol {
 		session.dataTask(with: request) { (rawData, responce, taskError) in
 			do {
 				let data = try self.httpResponse(data: rawData, response: responce)
-				let responce = try self.decoder.decode([GetDayDataResponse].self, from: data)
+				let responce = try self.decoder.decode([SpacePhotoDataResponse].self, from: data)
 				completion(.success(responce))
 			} catch let error as NetworkServiceError {
 				completion(.failure(error))
