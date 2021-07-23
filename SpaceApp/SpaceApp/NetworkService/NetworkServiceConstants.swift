@@ -6,7 +6,7 @@
 //
 
 enum Constants {
-	static let urlString = "https://api.nasa.gov/planetary/apod"
-	static let api_key = "mU08RsKfiVxUFaN2g3a90dGvAWHrYhS7R8C90FiN"
-	static let count = "20"
+    static let urlString = "https://api.nasa.gov/planetary/apod"
+    static let api_key = "mU08RsKfiVxUFaN2g3a90dGvAWHrYhS7R8C90FiN"
+    static let count = "20"
 }

@@ -10,6 +10,6 @@ import Foundation
 typealias GetNASAAPIResponse = Result<[SpacePhotoDataResponse], NetworkServiceError>
 
 protocol NASANetworkServiceProtocol {
-	func getDataFromAPI(with completion: @escaping (GetNASAAPIResponse) ->Void)
-	func loadImage(imageUrl: String, completion: @escaping (Data?) -> Void)
+    func getDataFromAPI(with completion: @escaping (GetNASAAPIResponse) ->Void)
+    func loadImage(imageUrl: String, completion: @escaping (Data?) -> Void)
 }

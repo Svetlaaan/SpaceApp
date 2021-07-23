@@ -6,9 +6,9 @@
 //
 
 enum NetworkServiceError: Error {
-	case network
-	case decodable
-	case unknown
+    case network
+    case decodable
+    case unknown
 }
 
 //import Foundation

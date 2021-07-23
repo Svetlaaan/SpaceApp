@@ -9,11 +9,11 @@ import UIKit
 
 final class SpacePhotoCell: UITableViewCell {
 
-	static let identifier = "SpacePhotoCell"
+    static let identifier = "SpacePhotoCell"
 
-	func configure(with model: SpacePhotoDataResponse) {
-		textLabel?.text = model.title
-		textLabel?.font = .boldSystemFont(ofSize: 18)
-		textLabel?.textAlignment = .center
-	}
+    func configure(with model: SpacePhotoDataResponse) {
+        textLabel?.text = model.title
+        textLabel?.font = .boldSystemFont(ofSize: 18)
+        textLabel?.textAlignment = .center
+    }
 }

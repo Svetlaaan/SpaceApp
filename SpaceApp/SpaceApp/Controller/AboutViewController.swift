@@ -9,89 +9,105 @@ import UIKit
 
 final class AboutViewController: BaseViewController {
 
-	private lazy var backgroundImageView: UIImageView = {
-		let image = UIImage(named: "space")
-		let imageView = UIImageView(frame: view.bounds)
-		imageView.contentMode = .scaleAspectFill
-		imageView.clipsToBounds = true
-		imageView.image = image
-		imageView.center = view.center
-		return imageView
-	}()
+    // кнопка для возврата на главный экран
+    private lazy var returnToMainVC: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+        button.tintColor = .black
+        button.addTarget(self, action: #selector(returnToMainPage) , for: .touchUpInside)
+        return button
+    }()
 
-	private lazy var aboutLabel: UILabel = {
-		let label = UILabel()
-//		label.text = """
-//Odio contentiones sed cu, usu commodo prompta prodesset id. Vivendum dignissim conceptam pri ut, ei vel partem audiam sapientem. Vel in dicant cetero phaedrum, usu populo interesset cu, eum ea facer nostrum pericula. Tation delenit percipitur at vix. Ius dicat feugiat no, vix cu modo dicat principes.
-//		Vel in dicant cetero phaedrum, usu populo interesset cu, eum ea facer nostrum pericula. Nec labore cetero theophrastus no, ei vero facer veritus nec. Ius dicat feugiat no, vix cu modo dicat principes. Eam id posse dictas voluptua, veniam laoreet oportere no mea, quis regione suscipiantur mea an.
-//  Magna copiosae apeirian ius at. Vel in dicant cetero phaedrum, usu populo interesset cu, eum ea facer nostrum pericula. Nec labore cetero theophrastus no, ei vero facer veritus nec. Eu eam dolores lobortis percipitur, quo te equidem deleniti disputando. . Sale liber et vel.
-//"""
-		label.numberOfLines = .max
-		label.textColor = .white
-		label.textAlignment = .justified
-		label.font = UIFont.boldSystemFont(ofSize: 18)
-		label.translatesAutoresizingMaskIntoConstraints = false
-		return label
-	}()
+    private lazy var backgroundImageView: UIImageView = {
+        let image = UIImage(named: "space")
+        let imageView = UIImageView(frame: view.bounds)
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.image = image
+        imageView.center = view.center
+        return imageView
+    }()
 
-	private lazy var contactsImageView: UIImageView = {
-		let image = UIImage(named: "contacts")
-		let imageView = UIImageView(image: image)
-		imageView.contentMode = .scaleAspectFit
-		imageView.center = view.center
-		imageView.isHidden = true
-		imageView.translatesAutoresizingMaskIntoConstraints = false
-		return imageView
-	}()
+    private lazy var aboutLabel: UILabel = {
+        let label = UILabel()
+        //		label.text = """
+        //Odio contentiones sed cu, usu commodo prompta prodesset id. Vivendum dignissim conceptam pri ut, ei vel partem audiam sapientem. Vel in dicant cetero phaedrum, usu populo interesset cu, eum ea facer nostrum pericula. Tation delenit percipitur at vix. Ius dicat feugiat no, vix cu modo dicat principes.
+        //		Vel in dicant cetero phaedrum, usu populo interesset cu, eum ea facer nostrum pericula. Nec labore cetero theophrastus no, ei vero facer veritus nec. Ius dicat feugiat no, vix cu modo dicat principes. Eam id posse dictas voluptua, veniam laoreet oportere no mea, quis regione suscipiantur mea an.
+        //  Magna copiosae apeirian ius at. Vel in dicant cetero phaedrum, usu populo interesset cu, eum ea facer nostrum pericula. Nec labore cetero theophrastus no, ei vero facer veritus nec. Eu eam dolores lobortis percipitur, quo te equidem deleniti disputando. . Sale liber et vel.
+        //"""
+        label.numberOfLines = .max
+        label.textColor = .white
+        label.textAlignment = .justified
+        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
 
-	override func viewDidLoad() {
-		super.viewDidLoad()
+    private lazy var contactsImageView: UIImageView = {
+        let image = UIImage(named: "contacts")
+        let imageView = UIImageView(image: image)
+        imageView.contentMode = .scaleAspectFit
+        imageView.center = view.center
+        imageView.isHidden = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
 
-		title = "About app"
-		setAutoLayout()
-//		startAnimation()
-	}
+    // MARK: - View controller lifecycle methods
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
-	private func setAutoLayout() {
-		view.addSubview(backgroundImageView)
+        title = "About app"
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: returnToMainVC)
+        setAutoLayout()
+        //		startAnimation()
+    }
 
-		backgroundImageView.addSubview(aboutLabel)
-		let aboutLabelConstraints = ([
-			aboutLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-			aboutLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: view.frame.height),
-			aboutLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-			aboutLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50)
-		])
+    private func setAutoLayout() {
+        view.addSubview(backgroundImageView)
 
-		backgroundImageView.addSubview(contactsImageView)
-		let contactsImageViewConstraints = ([
-			contactsImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-			contactsImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-			contactsImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-			contactsImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50)
-		])
+        backgroundImageView.addSubview(aboutLabel)
+        let aboutLabelConstraints = ([
+            aboutLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            aboutLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: view.frame.height),
+            aboutLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
+            aboutLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50)
+        ])
 
-		NSLayoutConstraint.activate(aboutLabelConstraints)
-		NSLayoutConstraint.activate(contactsImageViewConstraints)
-	}
+        backgroundImageView.addSubview(contactsImageView)
+        let contactsImageViewConstraints = ([
+            contactsImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            contactsImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            contactsImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
+            contactsImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50)
+        ])
 
-	func startAnimation() {
-		aboutLabel.layer.removeAllAnimations()
+        NSLayoutConstraint.activate(aboutLabelConstraints)
+        NSLayoutConstraint.activate(contactsImageViewConstraints)
+    }
 
-		let textAnimation = CAKeyframeAnimation(keyPath: "position")
-		let duration = 20.0
+    func startAnimation() {
+        aboutLabel.layer.removeAllAnimations()
 
-		let pathArray = [[view.frame.width / 2, view.frame.height], [view.frame.width / 2, -100]]
-		textAnimation.values = pathArray
-		textAnimation.duration = duration
-		textAnimation.repeatCount = 0
-		aboutLabel.layer.add(textAnimation, forKey: "textPosition")
+        let textAnimation = CAKeyframeAnimation(keyPath: "position")
+        let duration = 20.0
 
-		Timer.scheduledTimer(timeInterval: TimeInterval(duration + 1.0), target: self, selector: #selector(contactInfo), userInfo: nil, repeats: false)
-	}
+        let pathArray = [[view.frame.width / 2, view.frame.height], [view.frame.width / 2, -100]]
+        textAnimation.values = pathArray
+        textAnimation.duration = duration
+        textAnimation.repeatCount = 0
+        aboutLabel.layer.add(textAnimation, forKey: "textPosition")
 
-	@objc func contactInfo() {
-		aboutLabel.isHidden = true
-		contactsImageView.isHidden = false
-	}
+        Timer.scheduledTimer(timeInterval: TimeInterval(duration + 1.0), target: self, selector: #selector(contactInfo), userInfo: nil, repeats: false)
+    }
+
+    @objc func contactInfo() {
+        aboutLabel.isHidden = true
+        contactsImageView.isHidden = false
+    }
+
+    @objc func returnToMainPage() {
+        navigationController?.popViewController(animated: true)
+    }
 }
