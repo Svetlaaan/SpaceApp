@@ -13,6 +13,7 @@ final class PictureOfSpaceViewController: BaseViewController {
     private let explanation: String
     private let networkService: NASANetworkServiceProtocol
     private let imageUrl: String
+    private let photoTitle: String
 
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -21,20 +22,42 @@ final class PictureOfSpaceViewController: BaseViewController {
         return scrollView
     }()
 
-    // кнопка для возврата на главный экран
+    // MARK: - Buttons
+
+//     кнопка для возврата на главный экран
     private lazy var returnToMainVC: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
         button.tintColor = .black
-        button.addTarget(self, action: #selector(returnToMainPage) , for: .touchUpInside)
+        button.addTarget(self, action: #selector(returnToMainVCButtonPressed), for: .touchUpInside)
         return button
     }()
+
+    // кнопка для добавления в избранное
+//    lazy private var favoriteButton: UIButton = {
+//        let button = UIButton(type: .system)
+//        button.setImage(UIImage(systemName: "star.fill"), for: .normal)
+//        button.tintColor = .black
+//        button.addTarget(self, action: #selector(favoriteButtonPressed), for: .touchUpInside)
+//        return button
+//    }()
+
+    // кнопка поделиться
+    lazy private var shareButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "square.and.arrow.up"), for: .normal)
+        button.tintColor = .black
+        button.addTarget(self, action: #selector(shareButtonPressed), for: .touchUpInside)
+        return button
+    }()
+
+    // MARK: - Labels
 
     lazy var mainTitle: UILabel = {
         let mainLabel = UILabel()
         mainLabel.translatesAutoresizingMaskIntoConstraints = false
-        mainLabel.text = "Space Photo of the Day:"
-        mainLabel.font = UIFont.boldSystemFont(ofSize:30)
+        mainLabel.text = "\(photoTitle)"
+        mainLabel.font = UIFont.boldSystemFont(ofSize: 16)
         //		mainLabel.textColor = .white
         return mainLabel
     }()
@@ -43,7 +66,7 @@ final class PictureOfSpaceViewController: BaseViewController {
         let dateLabel = UILabel()
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         dateLabel.text = "\(date)"
-        dateLabel.font = UIFont.boldSystemFont(ofSize:30)
+        dateLabel.font = UIFont.boldSystemFont(ofSize: 20)
         //		dateLabel.textColor = .white
         return dateLabel
     }()
@@ -53,17 +76,22 @@ final class PictureOfSpaceViewController: BaseViewController {
         explanationLabel.translatesAutoresizingMaskIntoConstraints = false
         explanationLabel.text = "\(explanation)"
         explanationLabel.textAlignment = .justified
-        explanationLabel.font = UIFont.boldSystemFont(ofSize:16)
+        explanationLabel.font = UIFont.boldSystemFont(ofSize: 16)
         //		explanationLabel.textColor = .white
         explanationLabel.numberOfLines = .min
         return explanationLabel
     }()
 
-    init(networkService: NASANetworkServiceProtocol, imageUrl: String, date: String, explanation: String) {
+    init(networkService: NASANetworkServiceProtocol,
+         imageUrl: String,
+         date: String,
+         explanation: String,
+         photoTitle: String) {
         self.networkService = networkService
         self.imageUrl = imageUrl
         self.date = date
         self.explanation = explanation
+        self.photoTitle = photoTitle
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -77,19 +105,20 @@ final class PictureOfSpaceViewController: BaseViewController {
         return imageView
     }()
 
-    // MARK: - View controller lifecycle methods
-    
+    // MARK: - lifecycle methods
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: returnToMainVC)
         view.backgroundColor = .white
+//        overrideUserInterfaceStyle = .dark
+        setNavigationBarButtonItems()
         setAutoLayout()
         loadData()
     }
 
     deinit {
-        print("ImageViewController deinit")
+        NSLog("ImageViewController deinit")
     }
 
     private func setAutoLayout() {
@@ -108,7 +137,8 @@ final class PictureOfSpaceViewController: BaseViewController {
 
         view.addSubview(imageView)
         NSLayoutConstraint.activate([
-            imageView.widthAnchor.constraint(equalToConstant: 300),
+            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
             imageView.heightAnchor.constraint(equalToConstant: 300),
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             imageView.topAnchor.constraint(equalTo: dateLabel.topAnchor, constant: 50)
@@ -119,8 +149,8 @@ final class PictureOfSpaceViewController: BaseViewController {
             scrollView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
             scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30)
         ])
 
         scrollView.addSubview(explanationLabel)
@@ -130,6 +160,15 @@ final class PictureOfSpaceViewController: BaseViewController {
             explanationLabel.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             explanationLabel.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
         ])
+    }
+
+    private func setNavigationBarButtonItems() {
+        let returnTo = UIBarButtonItem(customView: returnToMainVC)
+//        let addToFavorite = UIBarButtonItem(customView: favoriteButton)
+        let share = UIBarButtonItem(customView: shareButton)
+
+        navigationItem.setLeftBarButton(returnTo, animated: true)
+        navigationItem.setRightBarButton(share, animated: true)
     }
 
     // Нужна оптимизация загрузки изображения
@@ -145,9 +184,25 @@ final class PictureOfSpaceViewController: BaseViewController {
         }
     }
 
-    @objc func returnToMainPage() {
+    @objc func returnToMainVCButtonPressed() {
         navigationController?.popViewController(animated: true)
     }
 
+//    @objc func favoriteButtonPressed() {
+//        NSLog("favorite button tapped")
+//        favoriteButton.tintColor = .orange
+//    }
 
+    @objc func shareButtonPressed() {
+        let shareController = UIActivityViewController(activityItems: [imageView.image as Any ],
+                                                       applicationActivities: nil)
+
+//        shareController.excludedActivityTypes = [.postToTwitter, .postToVimeo, .saveToCameraRoll]
+        shareController.popoverPresentationController?.sourceView = self.view
+        // Обработка выполнения остальных Activity Types
+        shareController.completionWithItemsHandler = { activity, completed, items, error in
+            NSLog("Activity: \(String(describing: activity)) Success: \(completed) Items: \(String(describing: items)) Error: \(String(describing: error))")
+        }
+        self.present(shareController, animated: true, completion: nil)
+    }
 }

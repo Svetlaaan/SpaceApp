@@ -10,136 +10,174 @@ import UIKit
 final class StartViewController: BaseViewController {
 
     let service = NASANetworkService()
+    private var dataSource = [SpacePhotoDataResponse]()
+    private let mainQueue = DispatchQueue.main
 
-    // MARK: - BUTTONS
+    private lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.showsVerticalScrollIndicator = false
+        return scrollView
+    }()
 
-    private lazy var sendButton: UIButton = {
+    lazy private var shareButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = .white
-        button.setTitle("Send", for: .normal)
-        button.tintColor = .darkGray
-        button.layer.cornerRadius = 10
-        button.layer.borderWidth = 2
-        button.layer.borderColor = UIColor.darkGray.cgColor
-        button.addTarget(self, action: #selector(sendButtonTapped), for: .touchUpInside)
-        button.isEnabled = false
-        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(systemName: "square.and.arrow.up"), for: .normal)
+        button.tintColor = .black
+        button.addTarget(self, action: #selector(shareButtonPressed), for: .touchUpInside)
         return button
     }()
 
-    private lazy var skipButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.backgroundColor = .white
-        button.setTitle("Skip", for: .normal)
-        button.tintColor = .darkGray
-        button.layer.cornerRadius = 10
-        button.layer.borderWidth = 2
-        button.layer.borderColor = UIColor.darkGray.cgColor
-        button.addTarget(self, action: #selector(skipButtonTapped), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
+    lazy var mainTitle: UILabel = {
+        let mainLabel = UILabel()
+        mainLabel.translatesAutoresizingMaskIntoConstraints = false
+        mainLabel.text = "photoTitle"
+        mainLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        //        mainLabel.textColor = .white
+        return mainLabel
     }()
 
-    private lazy var backgroundImageView: UIImageView = {
-        let image = UIImage(named: "space")
-        let imageView = UIImageView(frame: view.bounds)
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.image = image
-        imageView.center = view.center
+    lazy var dateLabel: UILabel = {
+        let dateLabel = UILabel()
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
+        dateLabel.text = "date)"
+        dateLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        //        dateLabel.textColor = .white
+        return dateLabel
+    }()
+
+    lazy var explanationLabel: UILabel = {
+        let explanationLabel = UILabel()
+        explanationLabel.translatesAutoresizingMaskIntoConstraints = false
+        explanationLabel.text = "(explanation)"
+        explanationLabel.textAlignment = .justified
+        explanationLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        //        explanationLabel.textColor = .white
+        explanationLabel.numberOfLines = .min
+        return explanationLabel
+    }()
+
+    private let imageView: UIImageView = {
+        let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
 
-    private lazy var textField: UITextField = {
-        let textField = UITextField(frame: CGRect(x: 0, y: 0, width: 300, height: 30))
-        textField.center = view.center
-        textField.placeholder = "Enter your name"
-        textField.borderStyle = .roundedRect
-        textField.backgroundColor = .white
-        textField.textColor = .black
-        textField.keyboardType = .default
-        textField.autocorrectionType = .no
-        textField.delegate = self
-        return textField
-    }()
-
-    // MARK: - View controller lifecycle methods
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = .white
+//        overrideUserInterfaceStyle = .dark
+        setNavigationBarButtonItems()
         setAutoLayout()
-        starsAnimation()
+//        loadData()
+    }
+
+    deinit {
+        print("ImageViewController deinit")
     }
 
     private func setAutoLayout() {
 
-        view.addSubview(backgroundImageView)
-        let backgroundImageViewConstraints = ([
-            backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor),
-            backgroundImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        view.addSubview(mainTitle)
+        NSLayoutConstraint.activate([
+            mainTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            mainTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20)
         ])
 
-        view.addSubview(textField)
-        let textFieldConstraints = ([
-            textField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            textField.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+        view.addSubview(dateLabel)
+        NSLayoutConstraint.activate([
+            dateLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            dateLabel.topAnchor.constraint(equalTo: mainTitle.topAnchor, constant: 50)
         ])
 
-        view.addSubview(sendButton)
-        let saveButtonConstraints = ([
-            sendButton.trailingAnchor.constraint(equalTo: textField.trailingAnchor),
-            sendButton.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 30),
-            sendButton.widthAnchor.constraint(equalToConstant: 130),
-            sendButton.heightAnchor.constraint(equalToConstant: 50)
+        view.addSubview(imageView)
+        NSLayoutConstraint.activate([
+            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+            imageView.heightAnchor.constraint(equalToConstant: 300),
+            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            imageView.topAnchor.constraint(equalTo: dateLabel.topAnchor, constant: 50)
         ])
 
-        view.addSubview(skipButton)
-        let skipButtonConstraints = ([
-            skipButton.leadingAnchor.constraint(equalTo: textField.leadingAnchor),
-            skipButton.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 30),
-            skipButton.widthAnchor.constraint(equalToConstant: 130),
-            skipButton.heightAnchor.constraint(equalToConstant: 50)
+        view.addSubview(scrollView)
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
+            scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30)
         ])
 
-        NSLayoutConstraint.activate(textFieldConstraints)
-        NSLayoutConstraint.activate(backgroundImageViewConstraints)
-        NSLayoutConstraint.activate(saveButtonConstraints)
-        NSLayoutConstraint.activate(skipButtonConstraints)
+        scrollView.addSubview(explanationLabel)
+        NSLayoutConstraint.activate([
+            explanationLabel.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            explanationLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            explanationLabel.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            explanationLabel.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+        ])
     }
 
-    private func starsAnimation() {
+    private func setNavigationBarButtonItems() {
+//        let returnTo = UIBarButtonItem(customView: returnToMainVC)
+//        let addToFavorite = UIBarButtonItem(customView: favoriteButton)
+        let share = UIBarButtonItem(customView: shareButton)
 
+//        navigationItem.setLeftBarButton(returnTo, animated: true)
+        navigationItem.setRightBarButton(share, animated: true)
     }
 
-    @objc func sendButtonTapped() {
-        let userName = textField.text?.trimmingCharacters(in: .whitespaces)
-        if let userName = userName, userName.count > 0 {
-            UserSettings.userName = userName
+    @objc func shareButtonPressed() {
+        let shareController = UIActivityViewController(activityItems: [imageView.image as Any ],
+                                                       applicationActivities: nil)
+
+//        shareController.excludedActivityTypes = [.postToTwitter, .postToVimeo, .saveToCameraRoll]
+        shareController.popoverPresentationController?.sourceView = self.view
+        // Обработка выполнения остальных Activity Types
+        shareController.completionWithItemsHandler = { activity, completed, items, error in
+            print("Activity: \(String(describing: activity)) Success: \(completed) Items: \(String(describing: items)) Error: \(String(describing: error))")
         }
-        let viewController = MainViewController(networkService: service)
-        navigationController?.pushViewController(viewController, animated: true)
+        self.present(shareController, animated: true, completion: nil)
     }
 
-    @objc func skipButtonTapped() {
-        let viewController = MainViewController(networkService: service)
-        navigationController?.pushViewController(viewController, animated: true)
-    }
-}
+//    private func loadData() {
+//        isLoading = true
+//        self.service.getDataFromAPI(count: "0", with: { self.process($0) })
+//    }
 
-extension StartViewController: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//    private func loadData() {
+//        self.isLoading = true
+//        service.loadImage(imageUrl: imageUrl) { data in
+//            if let data = data, let image = UIImage(data: data) {
+//                DispatchQueue.main.async {
+//                    self.imageView.image = image
+//                    self.isLoading = false
+//                }
+//            }
+//        }
+//    }
 
-        guard let text = textField.text else { return false }
-        let editedText = (text as NSString).replacingCharacters(in: range, with: string)
-        let trimmingEditedString = editedText.trimmingCharacters(in: .whitespaces)
-
-        if !editedText.isEmpty, trimmingEditedString.count > 0  {
-            sendButton.isEnabled = true
-        } else {
-            sendButton.isEnabled = false
+    private func process(_ response: GetNASAAPIResponse) {
+        mainQueue.async {
+            switch response {
+            case .success(let data):
+                self.dataSource.append(contentsOf: data)
+//                self.tableView.reloadData()
+            case .failure(let error):
+                self.showAlert(for: error)
+            }
+            self.isLoading = false
         }
-        return true
     }
+
+    private func showAlert(for error: Error) {
+        let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+//        let alert = UIAlertController(title: "ОШИБКА",
+//                                      message: message(for: error),
+//                                      preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alert.addAction(okAction)
+        present(alert, animated: true)
+    }
+
 }

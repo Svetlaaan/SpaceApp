@@ -10,6 +10,8 @@ import CoreData
 
 final class HistoryViewController: BaseViewController {
 
+    let networkService = NASANetworkService()
+
     private var coreDataStack = Container.shared.coreDataStack
     //	weak var tableViewController: UITableViewController?
 
@@ -23,9 +25,9 @@ final class HistoryViewController: BaseViewController {
 
     private lazy var frc: NSFetchedResultsController<MOSpacePhoto> = {
         let request = NSFetchRequest<MOSpacePhoto>(entityName: "MOSpacePhoto")
-        request.sortDescriptors = [.init(key: "index", ascending: false)]
+        request.sortDescriptors = [.init(key: "title", ascending: false)]
 
-        let frc =  NSFetchedResultsController(fetchRequest: request,
+        let frc = NSFetchedResultsController(fetchRequest: request,
                                               managedObjectContext: Container.shared.coreDataStack.backgroundContext,
                                               sectionNameKeyPath: "title",
                                               cacheName: nil)
@@ -36,13 +38,13 @@ final class HistoryViewController: BaseViewController {
     // MARK: - BUTTONS
 
     // кнопка для возврата на главный экран
-    private lazy var returnToMainVC: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
-        button.tintColor = .black
-        button.addTarget(self, action: #selector(returnToMainPage) , for: .touchUpInside)
-        return button
-    }()
+//    private lazy var returnToMainVC: UIButton = {
+//        let button = UIButton(type: .system)
+//        button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+//        button.tintColor = .black
+//        button.addTarget(self, action: #selector(returnToMainPage), for: .touchUpInside)
+//        return button
+//    }()
 
     // кнопка "Очистить историю"
     private lazy var clearHistoryButton: UIButton = {
@@ -58,19 +60,20 @@ final class HistoryViewController: BaseViewController {
         let tableView = UITableView()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "HistoryCell")
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.showsVerticalScrollIndicator = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
 
     // MARK: - View controller lifecycle methods
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         title = "History"
         view.backgroundColor = .systemGray
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: returnToMainVC)
+//        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: returnToMainVC)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: clearHistoryButton)
         setAutoLayout()
     }
@@ -98,11 +101,15 @@ final class HistoryViewController: BaseViewController {
     }
 
     @objc func clearHistoryButtonTapped() {
-        let alert = UIAlertController(title: "Clear history", message: "Are you really want to clear all history?", preferredStyle: .alert)
-        let yesAction = UIAlertAction(title: "Yes", style: .destructive) { (yesAction) in
+        let alert = UIAlertController(title: "Clear history",
+                                      message: "Are you really want to clear all history?",
+                                      preferredStyle: .alert)
+        let yesAction = UIAlertAction(title: "Yes", style: .destructive) { _ in
             self.coreDataStack.deleteAll()
         }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel",
+                                         style: .cancel,
+                                         handler: nil)
 
         alert.addAction(yesAction)
         alert.addAction(cancelAction)
@@ -110,9 +117,9 @@ final class HistoryViewController: BaseViewController {
         present(alert, animated: true, completion: nil)
     }
 
-    @objc func returnToMainPage() {
-        navigationController?.popViewController(animated: true)
-    }
+//    @objc func returnToMainPage() {
+//        navigationController?.popViewController(animated: true)
+//    }
 }
 
 extension HistoryViewController: UITableViewDataSource {
@@ -135,15 +142,20 @@ extension HistoryViewController: UITableViewDataSource {
 
 }
 
-//extension HistoryViewController: UITableViewDelegate {
-//
-//	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//		tableView.deselectRow(at: indexPath, animated : true)
-//
-////		let pictureOfSpaceViewController = PictureOfSpaceViewController(networkService: networkService, imageUrl: dataSource[indexPath.row].url, date: dataSource[indexPath.row].date, explanation: dataSource[indexPath.row].explanation)
-////		navigationController?.pushViewController(pictureOfSpaceViewController, animated: true)
-//	}
-//}
+extension HistoryViewController: UITableViewDelegate {
+
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: true)
+
+        let selectedObject = frc.object(at: indexPath)
+        let pictureOfSpaceViewController = PictureOfSpaceViewController(networkService: networkService,
+                                                                        imageUrl: selectedObject.url,
+                                                                        date: selectedObject.date,
+                                                                        explanation: selectedObject.explanation,
+                                                                        photoTitle: selectedObject.title)
+		navigationController?.pushViewController(pictureOfSpaceViewController, animated: true)
+	}
+}
 
 extension HistoryViewController: NSFetchedResultsControllerDelegate {
 

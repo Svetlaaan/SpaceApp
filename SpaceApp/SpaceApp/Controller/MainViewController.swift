@@ -8,12 +8,10 @@
 import UIKit
 import CoreData
 
-// сбрасывается при новом запуске
-var indexRec = 0
-
 class MainViewController: BaseViewController {
 
     private let networkService: NASANetworkServiceProtocol
+    private let mainQueue = DispatchQueue.main
     private var dataSource = [SpacePhotoDataResponse]()
     private var coreDataStack = Container.shared.coreDataStack
 
@@ -26,27 +24,17 @@ class MainViewController: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - BUTTONS
+    // MARK: - Buttons
 
-    /// кнопка "О приложении"
-    private lazy var aboutAppButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(systemName: "info.circle.fill"), for: .normal)
-        button.tintColor = .black
-        button.addTarget(self, action: #selector(aboutAppButtonTapped), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-
-    /// кнопка "История просмотра"
-    private lazy var historyButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(systemName: "clock.fill"), for: .normal)
-        button.tintColor = .black
-        button.addTarget(self, action: #selector(historyButtonTapped), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
+    // кнопка "История просмотра"
+//    private lazy var historyButton: UIButton = {
+//        let button = UIButton(type: .system)
+//        button.setImage(UIImage(systemName: "clock.fill"), for: .normal)
+//        button.tintColor = .black
+//        button.addTarget(self, action: #selector(historyButtonTapped), for: .touchUpInside)
+//        button.translatesAutoresizingMaskIntoConstraints = false
+//        return button
+//    }()
 
     // Header image
     private lazy var spaceshipImageView: UIImageView = {
@@ -57,10 +45,10 @@ class MainViewController: BaseViewController {
         return imageView
     }()
 
-    // MARK: - LABELS
+    // MARK: - Labels
     private lazy var mainLabel: UILabel = {
         let label = UILabel()
-        label.text = "Click on title to see a photo from space"
+        label.text = "Space photos"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 3
         label.textAlignment = .center
@@ -70,7 +58,7 @@ class MainViewController: BaseViewController {
         return label
     }()
 
-    // MARK: - TABLE VIEW
+    // MARK: - Table view
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(SpacePhotoCell.self, forCellReuseIdentifier: SpacePhotoCell.identifier)
@@ -81,29 +69,23 @@ class MainViewController: BaseViewController {
         return tableView
     }()
 
-    // MARK: - View controller lifecycle methods
-    
+    // MARK: - Lifecycle methods
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
 
-        // Варианты установки имени пользователя в title:
-        // 1. пользователь при запуске приложения ввел имя и нажал кнопку "Send" - берется имя из user defaults
-        // 2. пользователь при запуске приложения нажал кнопку "Skip", ранее имя уже вводилось - берется имя из user defaults
-        // 3. пользователь при запуске приложения нажал кнопку "Skip", ранее имя не вводилось - берется дефолтное значение
-        title = "Hey, \(UserSettings.userName ?? "Unknown")"
-
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: aboutAppButton)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: historyButton)
+        title = "Home"
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: historyButton)
         setAutoLayout()
         loadData()
     }
 
     deinit {
-        print("ViewController deinit")
+        NSLog("ViewController deinit")
     }
 
-    // MARK: - METHODS
+    // MARK: - Methods
 
     private func setAutoLayout() {
         view.addSubview(spaceshipImageView)
@@ -116,7 +98,7 @@ class MainViewController: BaseViewController {
 
         view.addSubview(tableView)
         let tableViewConstraints = ([
-            tableView.topAnchor.constraint(equalTo: view.centerYAnchor),
+            tableView.topAnchor.constraint(equalTo: view.centerYAnchor, constant: -(view.frame.height / 4)),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -137,11 +119,11 @@ class MainViewController: BaseViewController {
 
     private func loadData() {
         isLoading = true
-        self.networkService.getDataFromAPI(with: {self.process($0)})
+        self.networkService.getDataFromAPI(count: Constants.count, with: { self.process($0) })
     }
 
     private func process(_ response: GetNASAAPIResponse) {
-        DispatchQueue.main.async {
+        mainQueue.async {
             switch response {
             case .success(let data):
                 self.dataSource.append(contentsOf: data)
@@ -153,27 +135,14 @@ class MainViewController: BaseViewController {
         }
     }
 
-    private func showAlert(for error: NetworkServiceError) {
-        let alert = UIAlertController(title: "ОШИБКА",
-                                      message: message(for: error),
-                                      preferredStyle: .alert)
+    private func showAlert(for error: Error) {
+        let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+//        let alert = UIAlertController(title: "ОШИБКА",
+//                                      message: message(for: error),
+//                                      preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alert.addAction(okAction)
         present(alert, animated: true)
-    }
-
-    private func message(for error: NetworkServiceError) -> String {
-        switch error {
-        case .network:
-            return "Упал запрос"
-        case .decodable:
-            return "Не смогли распарсить"
-        case .unknown:
-            return "Непонятная ошибка"
-        }
-    }
-
-    @objc func aboutAppButtonTapped() {
-        let aboutController = AboutViewController()
-        navigationController?.pushViewController(aboutController, animated: true)
     }
 
     @objc func historyButtonTapped() {
@@ -193,6 +162,10 @@ extension MainViewController: UITableViewDataSource {
         (cell as? SpacePhotoCell)?.configure(with: dataSource[indexPath.row])
         return cell
     }
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 12
+    }
 }
 
 extension MainViewController: UITableViewDelegate {
@@ -200,22 +173,29 @@ extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == dataSource.count - 1, !isLoading {
             isLoading = true
-            networkService.getDataFromAPI(with: { self.process($0) })
+            networkService.getDataFromAPI(count: Constants.count, with: { self.process($0) })
         }
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath,animated : true)
-
+        tableView.deselectRow(at: indexPath, animated: true)
+//        coreDataStack.backgroundContext.performAndWait {
+//            let request = NSFetchRequest<MOSpacePhoto>(entityName: "MOSpacePhoto")
+//            request.predicate = NSPredicate(format: "title == %@", dataSource[indexPath.row].title)
+//            let result = try? request.execute()
+//            if let result = result {
+//                NSLog( "double rec")
+//                return
+//            }
+//        }
+        
         // синхронное выполнение сохранения инфы о просмотренном изображении в CD
         coreDataStack.backgroundContext.performAndWait {
-            indexRec += 1
             let spacePhoto = MOSpacePhoto(context: coreDataStack.backgroundContext)
             spacePhoto.date = "\(dataSource[indexPath.row].date)"
             spacePhoto.explanation = "\(dataSource[indexPath.row].explanation)"
             spacePhoto.title = "\(dataSource[indexPath.row].title)"
             spacePhoto.url = "\(dataSource[indexPath.row].url)"
-            spacePhoto.index = Int16(indexRec)
             try? coreDataStack.backgroundContext.save()
 
             // DEBUG PRINT
@@ -230,7 +210,12 @@ extension MainViewController: UITableViewDelegate {
             }
         }
 
-        let pictureOfSpaceViewController = PictureOfSpaceViewController(networkService: networkService, imageUrl: dataSource[indexPath.row].url, date: dataSource[indexPath.row].date, explanation: dataSource[indexPath.row].explanation)
+        let pictureOfSpaceViewController = PictureOfSpaceViewController(networkService: networkService,
+                                                                        imageUrl: dataSource[indexPath.row].url,
+                                                                        date: dataSource[indexPath.row].date,
+                                                                        explanation: dataSource[indexPath.row].explanation,
+                                                                        photoTitle: dataSource[indexPath.row].title)
         navigationController?.pushViewController(pictureOfSpaceViewController, animated: true)
+//        self.present(pictureOfSpaceViewController, animated: true, completion: nil)
     }
 }

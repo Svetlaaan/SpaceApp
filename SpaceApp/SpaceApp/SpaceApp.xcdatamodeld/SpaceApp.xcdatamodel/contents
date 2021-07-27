@@ -3,11 +3,10 @@
     <entity name="MOSpacePhoto" representedClassName="MOSpacePhoto" syncable="YES">
         <attribute name="date" attributeType="String" defaultValueString="&quot;&quot;"/>
         <attribute name="explanation" attributeType="String" defaultValueString="&quot;&quot;"/>
-        <attribute name="index" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="title" attributeType="String" defaultValueString="&quot;&quot;"/>
         <attribute name="url" attributeType="String" defaultValueString="&quot;&quot;"/>
     </entity>
     <elements>
-        <element name="MOSpacePhoto" positionX="-63" positionY="-18" width="128" height="104"/>
+        <element name="MOSpacePhoto" positionX="-37.73828125" positionY="252.36328125" width="128" height="43"/>
     </elements>
 </model>

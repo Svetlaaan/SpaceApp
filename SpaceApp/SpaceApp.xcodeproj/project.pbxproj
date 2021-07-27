@@ -31,7 +31,11 @@
 		FA16630C26A9A29500450794 /* MOSpacePhoto+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA16630A26A9A29500450794 /* MOSpacePhoto+CoreDataProperties.swift */; };
 		FA16631526A9A5B000450794 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA16631426A9A5B000450794 /* CoreDataStack.swift */; };
 		FA16631D26A9CAC300450794 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA16631C26A9CAC300450794 /* Container.swift */; };
-		FA16633926AAC9FD00450794 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA16633826AAC9FD00450794 /* UserSettings.swift */; };
+		FA16633926AAC9FD00450794 /* UserSettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA16633826AAC9FD00450794 /* UserSettingsService.swift */; };
+		FA16639526AC505200450794 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA16639426AC505200450794 /* TabBarController.swift */; };
+		FA16639A26AC574000450794 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA16639926AC574000450794 /* FavoriteViewController.swift */; };
+		FA1663B526AC871E00450794 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1663B426AC871E00450794 /* SettingsController.swift */; };
+		FA1663C026AC9BC500450794 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1663BF26AC9BC500450794 /* GradientView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,7 +86,11 @@
 		FA16630A26A9A29500450794 /* MOSpacePhoto+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MOSpacePhoto+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		FA16631426A9A5B000450794 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		FA16631C26A9CAC300450794 /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
-		FA16633826AAC9FD00450794 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
+		FA16633826AAC9FD00450794 /* UserSettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsService.swift; sourceTree = "<group>"; };
+		FA16639426AC505200450794 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		FA16639926AC574000450794 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
+		FA1663B426AC871E00450794 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
+		FA1663BF26AC9BC500450794 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,7 +141,8 @@
 		FA16625A26A72ABF00450794 /* SpaceApp */ = {
 			isa = PBXGroup;
 			children = (
-				FA16633726AAC9ED00450794 /* UserDefaults */,
+				FAB01A7D26B0689300DDD2AA /* History */,
+				FA1663B326AC86FA00450794 /* UserSettings */,
 				FA16631026A9A2B300450794 /* CoreData */,
 				FA16630526A88F6D00450794 /* Spinner */,
 				FA1662A526A72BFF00450794 /* NetworkService */,
@@ -172,8 +181,9 @@
 				FA1662A626A72C1000450794 /* MainViewController.swift */,
 				FA1662B826A72C6C00450794 /* PictureOfSpaceViewController.swift */,
 				FA1662BD26A72C8B00450794 /* AboutViewController.swift */,
-				FA1662C226A72CA700450794 /* HistoryViewController.swift */,
 				FA1662F126A852FC00450794 /* StartViewController.swift */,
+				FA16639426AC505200450794 /* TabBarController.swift */,
+				FA16639926AC574000450794 /* FavoriteViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -183,6 +193,7 @@
 			children = (
 				FA1662C726A72CC500450794 /* SpacePhotoCell.swift */,
 				FA1662F626A8536B00450794 /* BackgroundImageView.swift */,
+				FA1663BF26AC9BC500450794 /* GradientView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -219,12 +230,21 @@
 			path = CoreData;
 			sourceTree = "<group>";
 		};
-		FA16633726AAC9ED00450794 /* UserDefaults */ = {
+		FA1663B326AC86FA00450794 /* UserSettings */ = {
 			isa = PBXGroup;
 			children = (
-				FA16633826AAC9FD00450794 /* UserSettings.swift */,
+				FA1663B426AC871E00450794 /* SettingsController.swift */,
+				FA16633826AAC9FD00450794 /* UserSettingsService.swift */,
 			);
-			path = UserDefaults;
+			path = UserSettings;
+			sourceTree = "<group>";
+		};
+		FAB01A7D26B0689300DDD2AA /* History */ = {
+			isa = PBXGroup;
+			children = (
+				FA1662C226A72CA700450794 /* HistoryViewController.swift */,
+			);
+			path = History;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -237,6 +257,7 @@
 				FA16625426A72ABF00450794 /* Sources */,
 				FA16625526A72ABF00450794 /* Frameworks */,
 				FA16625626A72ABF00450794 /* Resources */,
+				FA16635A26AB34EA00450794 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -350,6 +371,26 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		FA16635A26AB34EA00450794 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nexport PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"error: SwiftLint does not exist, download it from https://github.com/realm/SwiftLint\"\n  exit 1\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		FA16625426A72ABF00450794 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -360,22 +401,26 @@
 				FA16630C26A9A29500450794 /* MOSpacePhoto+CoreDataProperties.swift in Sources */,
 				FA1662C826A72CC500450794 /* SpacePhotoCell.swift in Sources */,
 				FA1662B926A72C6C00450794 /* PictureOfSpaceViewController.swift in Sources */,
+				FA16639526AC505200450794 /* TabBarController.swift in Sources */,
+				FA1663B526AC871E00450794 /* SettingsController.swift in Sources */,
 				FA16626626A72ABF00450794 /* SpaceApp.xcdatamodeld in Sources */,
 				FA1662A726A72C1000450794 /* MainViewController.swift in Sources */,
 				FA1662E126A72D3F00450794 /* NetworkServiceConstants.swift in Sources */,
+				FA1663C026AC9BC500450794 /* GradientView.swift in Sources */,
 				FA16625E26A72ABF00450794 /* SceneDelegate.swift in Sources */,
 				FA16631D26A9CAC300450794 /* Container.swift in Sources */,
 				FA16630B26A9A29500450794 /* MOSpacePhoto+CoreDataClass.swift in Sources */,
 				FA1662AF26A72C3300450794 /* SpinnerViewController.swift in Sources */,
 				FA1662DC26A72D2600450794 /* NetworkServiceError.swift in Sources */,
 				FA1662C326A72CA700450794 /* HistoryViewController.swift in Sources */,
-				FA16633926AAC9FD00450794 /* UserSettings.swift in Sources */,
+				FA16633926AAC9FD00450794 /* UserSettingsService.swift in Sources */,
 				FA1662F226A852FC00450794 /* StartViewController.swift in Sources */,
 				FA1662BE26A72C8B00450794 /* AboutViewController.swift in Sources */,
 				FA1662F726A8536B00450794 /* BackgroundImageView.swift in Sources */,
 				FA1662CD26A72CE000450794 /* NASANetworkService.swift in Sources */,
 				FA1662D226A72CFA00450794 /* NASANetworkServiceProtocol.swift in Sources */,
 				FA1662D726A72D1200450794 /* GetDataResponse.swift in Sources */,
+				FA16639A26AC574000450794 /* FavoriteViewController.swift in Sources */,
 				FA1662B426A72C5500450794 /* BaseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

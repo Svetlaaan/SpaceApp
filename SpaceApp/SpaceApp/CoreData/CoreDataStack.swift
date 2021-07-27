@@ -21,7 +21,7 @@ final class CoreDataStack {
     }
 
     func load() {
-        container.loadPersistentStores { desc, error in
+        container.loadPersistentStores { _, error in
             if let error = error {
                 assertionFailure(error.localizedDescription)
             }
@@ -41,7 +41,8 @@ final class CoreDataStack {
 
     func fetchMaxIndex() {
         // класс NSFetchRequest используется в качестве запроса выборки данных из модели.
-        // Этот инструмент позволяет задавать правила фильтрации и сортировки объектов на этапе извлечения их из базы данных
+        // Этот инструмент позволяет задавать правила фильтрации и сортировки объектов на
+        // этапе извлечения их из базы данных
         let fetchRequest = NSFetchRequest<MOSpacePhoto>(entityName: "MOSpacePhoto")
 
         let indexSortDescriptor = NSSortDescriptor(key: "index", ascending: false)

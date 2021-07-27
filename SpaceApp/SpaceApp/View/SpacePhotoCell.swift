@@ -14,6 +14,5 @@ final class SpacePhotoCell: UITableViewCell {
     func configure(with model: SpacePhotoDataResponse) {
         textLabel?.text = model.title
         textLabel?.font = .boldSystemFont(ofSize: 18)
-        textLabel?.textAlignment = .center
     }
 }

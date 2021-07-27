@@ -7,38 +7,42 @@
 
 import Foundation
 
-final class NASANetworkService {
+final class NASANetworkService: NASANetworkServiceProtocol {
 
     private let session: URLSession = .shared
     private let decoder = JSONDecoder()
-}
 
-extension NASANetworkService: NASANetworkServiceProtocol {
-
-    func getDataFromAPI(with completion: @escaping (GetNASAAPIResponse) -> Void) {
+    func getDataFromAPI(count: String, with completion: @escaping (GetNASAAPIResponse) -> Void) {
         var components = URLComponents(string: Constants.urlString)
-        components?.queryItems = [
-            URLQueryItem(name: "count", value: Constants.count),
-            URLQueryItem(name: "api_key", value: Constants.api_key)
-        ]
+        if count == Constants.count {
+            components?.queryItems = [
+                URLQueryItem(name: "count", value: Constants.count),
+                URLQueryItem(name: "api_key", value: Constants.apiKey)
+            ]
+        } else {
+            components?.queryItems = [
+                URLQueryItem(name: "api_key", value: Constants.apiKey)
+            ]
+        }
 
         guard let url = components?.url else {
-            completion(.failure(.unknown))
+            completion(.failure(.urlParseError))
             return
         }
 
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
 
-        session.dataTask(with: request) { (rawData, responce, taskError) in
+        session.dataTask(with: request) { rawData, responce, _ in
             do {
-                let data = try self.httpResponse(data: rawData, response: responce)
+                guard let data = try? self.httpResponse(data: rawData, response: responce) else {
+                    completion(.failure(.dataError))
+                    return
+                }
                 let responce = try self.decoder.decode([SpacePhotoDataResponse].self, from: data)
                 completion(.success(responce))
-            } catch let error as NetworkServiceError {
-                completion(.failure(error))
             } catch {
-                completion(.failure(.decodable))
+                completion(.failure(.dataError))
             }
         }.resume()
     }
@@ -48,15 +52,14 @@ extension NASANetworkService: NASANetworkServiceProtocol {
             completion(nil)
             return
         }
-
         let request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad)
 
-        session.dataTask(with: request) { rawData, response, taskError in
+        session.dataTask(with: request) { rawData, response, _  in
             do {
                 let data = try self.httpResponse(data: rawData, response: response)
-                completion(data)
+                completion(data) // .success(data)
             } catch {
-                completion(nil)
+                completion(nil) // completion(.failure(NetworkErrors.urlError)) return
             }
         }.resume()
     }
@@ -65,7 +68,7 @@ extension NASANetworkService: NASANetworkServiceProtocol {
         guard let httpResponse = response as? HTTPURLResponse,
               (200..<300).contains(httpResponse.statusCode),
               let data = data else {
-            throw NetworkServiceError.network
+            throw NetworkServiceError.networkError
         }
         return data
     }

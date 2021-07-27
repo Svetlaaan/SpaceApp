@@ -11,5 +11,4 @@ import CoreData
 
 @objc(MOSpacePhoto)
 public class MOSpacePhoto: NSManagedObject {
-    
 }

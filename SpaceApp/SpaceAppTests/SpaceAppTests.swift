@@ -5,6 +5,8 @@
 //  Created by Svetlana Fomina on 20.07.2021.
 //
 
+// тесты на user defaults 00:53
+
 import XCTest
 @testable import SpaceApp
 
