@@ -12,19 +12,13 @@ final class NASANetworkService: NASANetworkServiceProtocol {
     private let session: URLSession = .shared
     private let decoder = JSONDecoder()
 
-    func getDataFromAPI(count: String, with completion: @escaping (GetNASAAPIResponse) -> Void) {
+    /// Загрузка данных
+    func getDataFromAPI(with completion: @escaping (GetNASAAPIResponse) -> Void) {
         var components = URLComponents(string: Constants.urlString)
-        if count == Constants.count {
-            components?.queryItems = [
-                URLQueryItem(name: "count", value: Constants.count),
-                URLQueryItem(name: "api_key", value: Constants.apiKey)
-            ]
-        } else {
-            components?.queryItems = [
-                URLQueryItem(name: "api_key", value: Constants.apiKey)
-            ]
-        }
-
+        components?.queryItems = [
+            URLQueryItem(name: "count", value: Constants.count),
+            URLQueryItem(name: "api_key", value: Constants.apiKey)
+        ]
         guard let url = components?.url else {
             completion(.failure(.urlParseError))
             return
@@ -47,23 +41,27 @@ final class NASANetworkService: NASANetworkServiceProtocol {
         }.resume()
     }
 
-    func loadImage(imageUrl: String, completion: @escaping (Data?) -> Void) {
+    /// Загрузка изображения
+    func loadImage(imageUrl: String, completion: @escaping (GetNASAAPIImageResponce) -> Void) {
         guard let url = URL(string: imageUrl) else {
-            completion(nil)
+            completion(.failure(.urlParseError))
             return
         }
+
         let request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad)
 
         session.dataTask(with: request) { rawData, response, _  in
             do {
                 let data = try self.httpResponse(data: rawData, response: response)
-                completion(data) // .success(data)
+                completion(.success(data))
             } catch {
-                completion(nil) // completion(.failure(NetworkErrors.urlError)) return
+                completion(.failure(.dataError))
+                return
             }
         }.resume()
     }
 
+    /// Обработка кода ответа
     private func httpResponse(data: Data?, response: URLResponse?) throws -> Data {
         guard let httpResponse = response as? HTTPURLResponse,
               (200..<300).contains(httpResponse.statusCode),

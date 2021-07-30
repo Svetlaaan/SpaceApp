@@ -9,10 +9,19 @@ import UIKit
 
 class TabBarController: UITabBarController {
 
-    let service = NASANetworkService()
+    let networkService: NASANetworkServiceProtocol
 
-    // MARK: - Lifecycle methods
+    // MARK: - Init
+    init(networkService: NASANetworkServiceProtocol) {
+        self.networkService = networkService
+        super.init(nibName: nil, bundle: nil)
+    }
 
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -23,8 +32,8 @@ class TabBarController: UITabBarController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        let mainVC = UINavigationController(rootViewController: MainViewController(networkService: service))
-        let mainVCBarItem = UITabBarItem(title: "Home",
+        let mainVC = UINavigationController(rootViewController: MainViewController(networkService: networkService))
+        let mainVCBarItem = UITabBarItem(title: "Main",
                                          image: UIImage(systemName: "house"),
                                          selectedImage: UIImage(systemName: "house.fill"))
         mainVC.tabBarItem = mainVCBarItem
@@ -41,15 +50,11 @@ class TabBarController: UITabBarController {
                                              selectedImage: UIImage(systemName: "gearshape.fill"))
         settingsVC.tabBarItem = settingsVCBarItem
 
-        let startVC = StartViewController()
-        let startVCBarItem = UITabBarItem(title: "Today", image: UIImage(systemName: "house"),
-                                          selectedImage: UIImage(systemName: "house.fill"))
-        startVC.tabBarItem = startVCBarItem
-
         self.viewControllers = [mainVC, historyVC, settingsVC]
     }
 }
 
+// MARK: - UITabBarControllerDelegate
 extension TabBarController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         NSLog("Selected \(viewController.title ?? "New") screen")

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -25,17 +25,25 @@
 		FA1662D726A72D1200450794 /* GetDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1662D626A72D1200450794 /* GetDataResponse.swift */; };
 		FA1662DC26A72D2600450794 /* NetworkServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1662DB26A72D2600450794 /* NetworkServiceError.swift */; };
 		FA1662E126A72D3F00450794 /* NetworkServiceConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1662E026A72D3F00450794 /* NetworkServiceConstants.swift */; };
-		FA1662F226A852FC00450794 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1662F126A852FC00450794 /* StartViewController.swift */; };
-		FA1662F726A8536B00450794 /* BackgroundImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1662F626A8536B00450794 /* BackgroundImageView.swift */; };
 		FA16630B26A9A29500450794 /* MOSpacePhoto+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA16630926A9A29500450794 /* MOSpacePhoto+CoreDataClass.swift */; };
 		FA16630C26A9A29500450794 /* MOSpacePhoto+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA16630A26A9A29500450794 /* MOSpacePhoto+CoreDataProperties.swift */; };
 		FA16631526A9A5B000450794 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA16631426A9A5B000450794 /* CoreDataStack.swift */; };
-		FA16631D26A9CAC300450794 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA16631C26A9CAC300450794 /* Container.swift */; };
+		FA16631D26A9CAC300450794 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA16631C26A9CAC300450794 /* DIContainer.swift */; };
 		FA16633926AAC9FD00450794 /* UserSettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA16633826AAC9FD00450794 /* UserSettingsService.swift */; };
 		FA16639526AC505200450794 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA16639426AC505200450794 /* TabBarController.swift */; };
-		FA16639A26AC574000450794 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA16639926AC574000450794 /* FavoriteViewController.swift */; };
 		FA1663B526AC871E00450794 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1663B426AC871E00450794 /* SettingsController.swift */; };
 		FA1663C026AC9BC500450794 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1663BF26AC9BC500450794 /* GradientView.swift */; };
+		FAB01A9B26B1C44D00DDD2AA /* BaseViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB01A9A26B1C44D00DDD2AA /* BaseViewControllerTests.swift */; };
+		FAB01AB826B1D14000DDD2AA /* MainViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB01AB726B1D14000DDD2AA /* MainViewControllerTests.swift */; };
+		FAB01AD526B1E52E00DDD2AA /* UserSettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA16633826AAC9FD00450794 /* UserSettingsService.swift */; };
+		FAB01B1126B1F18900DDD2AA /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1662B326A72C5500450794 /* BaseViewController.swift */; };
+		FAB01B1526B1F1A000DDD2AA /* SpinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1662AE26A72C3300450794 /* SpinnerViewController.swift */; };
+		FAB01B1A26B1F36C00DDD2AA /* CoreDataStackProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB01B1926B1F36C00DDD2AA /* CoreDataStackProtocol.swift */; };
+		FAB01B2126B1F68000DDD2AA /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1663B426AC871E00450794 /* SettingsController.swift */; };
+		FAB01B2526B1F69200DDD2AA /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1663BF26AC9BC500450794 /* GradientView.swift */; };
+		FAB01B2926B1F6B700DDD2AA /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1662BD26A72C8B00450794 /* AboutViewController.swift */; };
+		FAB01BEE26B3747400DDD2AA /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = FAB01BED26B3747400DDD2AA /* SnapshotTesting */; };
+		FAB01BF926B3756500DDD2AA /* SpaceAppSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB01BF826B3756500DDD2AA /* SpaceAppSnapshotTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +55,13 @@
 			remoteInfo = SpaceApp;
 		};
 		FA16627D26A72AC200450794 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA16625026A72ABF00450794 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FA16625726A72ABF00450794;
+			remoteInfo = SpaceApp;
+		};
+		FAB01BFB26B3756500DDD2AA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = FA16625026A72ABF00450794 /* Project object */;
 			proxyType = 1;
@@ -80,17 +95,20 @@
 		FA1662D626A72D1200450794 /* GetDataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDataResponse.swift; sourceTree = "<group>"; };
 		FA1662DB26A72D2600450794 /* NetworkServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceError.swift; sourceTree = "<group>"; };
 		FA1662E026A72D3F00450794 /* NetworkServiceConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceConstants.swift; sourceTree = "<group>"; };
-		FA1662F126A852FC00450794 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
-		FA1662F626A8536B00450794 /* BackgroundImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundImageView.swift; sourceTree = "<group>"; };
 		FA16630926A9A29500450794 /* MOSpacePhoto+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MOSpacePhoto+CoreDataClass.swift"; sourceTree = "<group>"; };
 		FA16630A26A9A29500450794 /* MOSpacePhoto+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MOSpacePhoto+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		FA16631426A9A5B000450794 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
-		FA16631C26A9CAC300450794 /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
+		FA16631C26A9CAC300450794 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
 		FA16633826AAC9FD00450794 /* UserSettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsService.swift; sourceTree = "<group>"; };
 		FA16639426AC505200450794 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
-		FA16639926AC574000450794 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		FA1663B426AC871E00450794 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		FA1663BF26AC9BC500450794 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		FAB01A9A26B1C44D00DDD2AA /* BaseViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewControllerTests.swift; sourceTree = "<group>"; };
+		FAB01AB726B1D14000DDD2AA /* MainViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerTests.swift; sourceTree = "<group>"; };
+		FAB01B1926B1F36C00DDD2AA /* CoreDataStackProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStackProtocol.swift; sourceTree = "<group>"; };
+		FAB01BF626B3756500DDD2AA /* SpaceAppSnapshotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpaceAppSnapshotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAB01BF826B3756500DDD2AA /* SpaceAppSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceAppSnapshotTests.swift; sourceTree = "<group>"; };
+		FAB01BFA26B3756500DDD2AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +116,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAB01BEE26B3747400DDD2AA /* SnapshotTesting in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,6 +134,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FAB01BF326B3756500DDD2AA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -124,6 +150,7 @@
 				FA16625A26A72ABF00450794 /* SpaceApp */,
 				FA16627426A72AC200450794 /* SpaceAppTests */,
 				FA16627F26A72AC200450794 /* SpaceAppUITests */,
+				FAB01BF726B3756500DDD2AA /* SpaceAppSnapshotTests */,
 				FA16625926A72ABF00450794 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -134,6 +161,7 @@
 				FA16625826A72ABF00450794 /* SpaceApp.app */,
 				FA16627126A72AC200450794 /* SpaceAppTests.xctest */,
 				FA16627C26A72AC200450794 /* SpaceAppUITests.xctest */,
+				FAB01BF626B3756500DDD2AA /* SpaceAppSnapshotTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -141,18 +169,13 @@
 		FA16625A26A72ABF00450794 /* SpaceApp */ = {
 			isa = PBXGroup;
 			children = (
-				FAB01A7D26B0689300DDD2AA /* History */,
-				FA1663B326AC86FA00450794 /* UserSettings */,
-				FA16631026A9A2B300450794 /* CoreData */,
 				FA16630526A88F6D00450794 /* Spinner */,
-				FA1662A526A72BFF00450794 /* NetworkService */,
+				FAB01A9026B1BC4B00DDD2AA /* Other */,
+				FAB01A8C26B1B6C800DDD2AA /* Services */,
+				FA16631026A9A2B300450794 /* CoreData */,
 				FA1662A426A72BF700450794 /* View */,
 				FA1662A326A72BED00450794 /* Controller */,
-				FA16625B26A72ABF00450794 /* AppDelegate.swift */,
-				FA16625D26A72ABF00450794 /* SceneDelegate.swift */,
-				FA16626726A72AC200450794 /* Assets.xcassets */,
 				FA16626C26A72AC200450794 /* Info.plist */,
-				FA16626426A72ABF00450794 /* SpaceApp.xcdatamodeld */,
 			);
 			path = SpaceApp;
 			sourceTree = "<group>";
@@ -162,6 +185,8 @@
 			children = (
 				FA16627526A72AC200450794 /* SpaceAppTests.swift */,
 				FA16627726A72AC200450794 /* Info.plist */,
+				FAB01A9A26B1C44D00DDD2AA /* BaseViewControllerTests.swift */,
+				FAB01AB726B1D14000DDD2AA /* MainViewControllerTests.swift */,
 			);
 			path = SpaceAppTests;
 			sourceTree = "<group>";
@@ -178,12 +203,12 @@
 		FA1662A326A72BED00450794 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				FA1662C226A72CA700450794 /* HistoryViewController.swift */,
+				FA1663B426AC871E00450794 /* SettingsController.swift */,
 				FA1662A626A72C1000450794 /* MainViewController.swift */,
 				FA1662B826A72C6C00450794 /* PictureOfSpaceViewController.swift */,
 				FA1662BD26A72C8B00450794 /* AboutViewController.swift */,
-				FA1662F126A852FC00450794 /* StartViewController.swift */,
 				FA16639426AC505200450794 /* TabBarController.swift */,
-				FA16639926AC574000450794 /* FavoriteViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -192,7 +217,6 @@
 			isa = PBXGroup;
 			children = (
 				FA1662C726A72CC500450794 /* SpacePhotoCell.swift */,
-				FA1662F626A8536B00450794 /* BackgroundImageView.swift */,
 				FA1663BF26AC9BC500450794 /* GradientView.swift */,
 			);
 			path = View;
@@ -225,26 +249,39 @@
 				FA16630926A9A29500450794 /* MOSpacePhoto+CoreDataClass.swift */,
 				FA16630A26A9A29500450794 /* MOSpacePhoto+CoreDataProperties.swift */,
 				FA16631426A9A5B000450794 /* CoreDataStack.swift */,
-				FA16631C26A9CAC300450794 /* Container.swift */,
+				FA16631C26A9CAC300450794 /* DIContainer.swift */,
+				FAB01B1926B1F36C00DDD2AA /* CoreDataStackProtocol.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
 		};
-		FA1663B326AC86FA00450794 /* UserSettings */ = {
+		FAB01A8C26B1B6C800DDD2AA /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				FA1663B426AC871E00450794 /* SettingsController.swift */,
+				FA1662A526A72BFF00450794 /* NetworkService */,
 				FA16633826AAC9FD00450794 /* UserSettingsService.swift */,
 			);
-			path = UserSettings;
+			path = Services;
 			sourceTree = "<group>";
 		};
-		FAB01A7D26B0689300DDD2AA /* History */ = {
+		FAB01A9026B1BC4B00DDD2AA /* Other */ = {
 			isa = PBXGroup;
 			children = (
-				FA1662C226A72CA700450794 /* HistoryViewController.swift */,
+				FA16625D26A72ABF00450794 /* SceneDelegate.swift */,
+				FA16625B26A72ABF00450794 /* AppDelegate.swift */,
+				FA16626726A72AC200450794 /* Assets.xcassets */,
+				FA16626426A72ABF00450794 /* SpaceApp.xcdatamodeld */,
 			);
-			path = History;
+			path = Other;
+			sourceTree = "<group>";
+		};
+		FAB01BF726B3756500DDD2AA /* SpaceAppSnapshotTests */ = {
+			isa = PBXGroup;
+			children = (
+				FAB01BF826B3756500DDD2AA /* SpaceAppSnapshotTests.swift */,
+				FAB01BFA26B3756500DDD2AA /* Info.plist */,
+			);
+			path = SpaceAppSnapshotTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -264,6 +301,9 @@
 			dependencies = (
 			);
 			name = SpaceApp;
+			packageProductDependencies = (
+				FAB01BED26B3747400DDD2AA /* SnapshotTesting */,
+			);
 			productName = SpaceApp;
 			productReference = FA16625826A72ABF00450794 /* SpaceApp.app */;
 			productType = "com.apple.product-type.application";
@@ -304,6 +344,24 @@
 			productReference = FA16627C26A72AC200450794 /* SpaceAppUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		FAB01BF526B3756500DDD2AA /* SpaceAppSnapshotTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FAB01BFD26B3756500DDD2AA /* Build configuration list for PBXNativeTarget "SpaceAppSnapshotTests" */;
+			buildPhases = (
+				FAB01BF226B3756500DDD2AA /* Sources */,
+				FAB01BF326B3756500DDD2AA /* Frameworks */,
+				FAB01BF426B3756500DDD2AA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FAB01BFC26B3756500DDD2AA /* PBXTargetDependency */,
+			);
+			name = SpaceAppSnapshotTests;
+			productName = SpaceAppSnapshotTests;
+			productReference = FAB01BF626B3756500DDD2AA /* SpaceAppSnapshotTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -318,9 +376,12 @@
 					};
 					FA16627026A72AC200450794 = {
 						CreatedOnToolsVersion = 12.4;
-						TestTargetID = FA16625726A72ABF00450794;
 					};
 					FA16627B26A72AC200450794 = {
+						CreatedOnToolsVersion = 12.4;
+						TestTargetID = FA16625726A72ABF00450794;
+					};
+					FAB01BF526B3756500DDD2AA = {
 						CreatedOnToolsVersion = 12.4;
 						TestTargetID = FA16625726A72ABF00450794;
 					};
@@ -335,6 +396,9 @@
 				Base,
 			);
 			mainGroup = FA16624F26A72ABF00450794;
+			packageReferences = (
+				FAB01BEC26B3747400DDD2AA /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
+			);
 			productRefGroup = FA16625926A72ABF00450794 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -342,6 +406,7 @@
 				FA16625726A72ABF00450794 /* SpaceApp */,
 				FA16627026A72AC200450794 /* SpaceAppTests */,
 				FA16627B26A72AC200450794 /* SpaceAppUITests */,
+				FAB01BF526B3756500DDD2AA /* SpaceAppSnapshotTests */,
 			);
 		};
 /* End PBXProject section */
@@ -363,6 +428,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		FA16627A26A72AC200450794 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FAB01BF426B3756500DDD2AA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -403,24 +475,22 @@
 				FA1662B926A72C6C00450794 /* PictureOfSpaceViewController.swift in Sources */,
 				FA16639526AC505200450794 /* TabBarController.swift in Sources */,
 				FA1663B526AC871E00450794 /* SettingsController.swift in Sources */,
+				FAB01B1A26B1F36C00DDD2AA /* CoreDataStackProtocol.swift in Sources */,
 				FA16626626A72ABF00450794 /* SpaceApp.xcdatamodeld in Sources */,
 				FA1662A726A72C1000450794 /* MainViewController.swift in Sources */,
 				FA1662E126A72D3F00450794 /* NetworkServiceConstants.swift in Sources */,
 				FA1663C026AC9BC500450794 /* GradientView.swift in Sources */,
 				FA16625E26A72ABF00450794 /* SceneDelegate.swift in Sources */,
-				FA16631D26A9CAC300450794 /* Container.swift in Sources */,
+				FA16631D26A9CAC300450794 /* DIContainer.swift in Sources */,
 				FA16630B26A9A29500450794 /* MOSpacePhoto+CoreDataClass.swift in Sources */,
 				FA1662AF26A72C3300450794 /* SpinnerViewController.swift in Sources */,
 				FA1662DC26A72D2600450794 /* NetworkServiceError.swift in Sources */,
 				FA1662C326A72CA700450794 /* HistoryViewController.swift in Sources */,
 				FA16633926AAC9FD00450794 /* UserSettingsService.swift in Sources */,
-				FA1662F226A852FC00450794 /* StartViewController.swift in Sources */,
 				FA1662BE26A72C8B00450794 /* AboutViewController.swift in Sources */,
-				FA1662F726A8536B00450794 /* BackgroundImageView.swift in Sources */,
 				FA1662CD26A72CE000450794 /* NASANetworkService.swift in Sources */,
 				FA1662D226A72CFA00450794 /* NASANetworkServiceProtocol.swift in Sources */,
 				FA1662D726A72D1200450794 /* GetDataResponse.swift in Sources */,
-				FA16639A26AC574000450794 /* FavoriteViewController.swift in Sources */,
 				FA1662B426A72C5500450794 /* BaseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -429,7 +499,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAB01B1126B1F18900DDD2AA /* BaseViewController.swift in Sources */,
 				FA16627626A72AC200450794 /* SpaceAppTests.swift in Sources */,
+				FAB01A9B26B1C44D00DDD2AA /* BaseViewControllerTests.swift in Sources */,
+				FAB01B2926B1F6B700DDD2AA /* AboutViewController.swift in Sources */,
+				FAB01B2126B1F68000DDD2AA /* SettingsController.swift in Sources */,
+				FAB01AB826B1D14000DDD2AA /* MainViewControllerTests.swift in Sources */,
+				FAB01B1526B1F1A000DDD2AA /* SpinnerViewController.swift in Sources */,
+				FAB01B2526B1F69200DDD2AA /* GradientView.swift in Sources */,
+				FAB01AD526B1E52E00DDD2AA /* UserSettingsService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -438,6 +516,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA16628126A72AC200450794 /* SpaceAppUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FAB01BF226B3756500DDD2AA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FAB01BF926B3756500DDD2AA /* SpaceAppSnapshotTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -453,6 +539,11 @@
 			isa = PBXTargetDependency;
 			target = FA16625726A72ABF00450794 /* SpaceApp */;
 			targetProxy = FA16627D26A72AC200450794 /* PBXContainerItemProxy */;
+		};
+		FAB01BFC26B3756500DDD2AA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FA16625726A72ABF00450794 /* SpaceApp */;
+			targetProxy = FAB01BFB26B3756500DDD2AA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -580,6 +671,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 33V6XLTW6T;
+				ENABLE_TESTING_SEARCH_PATHS = YES;
 				INFOPLIST_FILE = SpaceApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -599,6 +691,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 33V6XLTW6T;
+				ENABLE_TESTING_SEARCH_PATHS = YES;
 				INFOPLIST_FILE = SpaceApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -615,7 +708,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 33V6XLTW6T;
 				INFOPLIST_FILE = SpaceAppTests/Info.plist;
@@ -629,7 +721,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpaceApp.app/SpaceApp";
 			};
 			name = Debug;
 		};
@@ -637,7 +728,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 33V6XLTW6T;
 				INFOPLIST_FILE = SpaceAppTests/Info.plist;
@@ -651,7 +741,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpaceApp.app/SpaceApp";
 			};
 			name = Release;
 		};
@@ -669,6 +758,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = SvetlanaFomina.SpaceAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = SpaceApp;
@@ -689,9 +779,52 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = SvetlanaFomina.SpaceAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = SpaceApp;
+			};
+			name = Release;
+		};
+		FAB01BFE26B3756500DDD2AA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 33V6XLTW6T;
+				INFOPLIST_FILE = SpaceAppSnapshotTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = SvetlanaFomina.SpaceAppSnapshotTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpaceApp.app/SpaceApp";
+			};
+			name = Debug;
+		};
+		FAB01BFF26B3756500DDD2AA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 33V6XLTW6T;
+				INFOPLIST_FILE = SpaceAppSnapshotTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = SvetlanaFomina.SpaceAppSnapshotTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpaceApp.app/SpaceApp";
 			};
 			name = Release;
 		};
@@ -734,7 +867,35 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		FAB01BFD26B3756500DDD2AA /* Build configuration list for PBXNativeTarget "SpaceAppSnapshotTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FAB01BFE26B3756500DDD2AA /* Debug */,
+				FAB01BFF26B3756500DDD2AA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FAB01BEC26B3747400DDD2AA /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.8.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FAB01BED26B3747400DDD2AA /* SnapshotTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FAB01BEC26B3747400DDD2AA /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
+			productName = SnapshotTesting;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		FA16626426A72ABF00450794 /* SpaceApp.xcdatamodeld */ = {

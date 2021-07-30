@@ -10,19 +10,10 @@ import CoreData
 
 final class HistoryViewController: BaseViewController {
 
-    let networkService = NASANetworkService()
-
+    private let networkService = NASANetworkService()
     private var coreDataStack = Container.shared.coreDataStack
-    //	weak var tableViewController: UITableViewController?
 
-    // FRC
-    // Контроллер класса NSFetchedResultsController условно можно расположить между Core Data и ViewController,
-    // в котором нам нужно отобразить данные из базы. Методы и свойства этого контроллера позволяют с удобством взаимодействовать,
-    // представлять и управлять объектами из Core Data в связке с таблицами UITableView, для которых он наиболее адаптирован.
-    // Этот контроллер умеет преобразовывать извлечённые объекты в элементы таблицы — секции и объекты этих секций.
-    // FRC имеет протокол NSFetchedResultsControllerDelegate, который при делегировании позволяет отлавливать изменения
-    // происходящих с объектами заданного запроса NSFetchRequest в момент инициализации контроллера.
-
+    /// NSFetchedResultsController
     private lazy var frc: NSFetchedResultsController<MOSpacePhoto> = {
         let request = NSFetchRequest<MOSpacePhoto>(entityName: "MOSpacePhoto")
         request.sortDescriptors = [.init(key: "title", ascending: false)]
@@ -35,18 +26,7 @@ final class HistoryViewController: BaseViewController {
         return frc
     }()
 
-    // MARK: - BUTTONS
-
-    // кнопка для возврата на главный экран
-//    private lazy var returnToMainVC: UIButton = {
-//        let button = UIButton(type: .system)
-//        button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
-//        button.tintColor = .black
-//        button.addTarget(self, action: #selector(returnToMainPage), for: .touchUpInside)
-//        return button
-//    }()
-
-    // кнопка "Очистить историю"
+    /// кнопка "Очистить историю"
     private lazy var clearHistoryButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "trash.circle.fill"), for: .normal)
@@ -56,6 +36,7 @@ final class HistoryViewController: BaseViewController {
         return button
     }()
 
+    /// Table View
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "HistoryCell")
@@ -66,14 +47,12 @@ final class HistoryViewController: BaseViewController {
         return tableView
     }()
 
-    // MARK: - View controller lifecycle methods
-
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
         title = "History"
         view.backgroundColor = .systemGray
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: returnToMainVC)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: clearHistoryButton)
         setAutoLayout()
     }
@@ -81,10 +60,6 @@ final class HistoryViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
 
-        // performFetch для извлечения выборки из базы данных
-        // Метод возвращает булево значение. Если извлечение произведено успешно,
-        // то вернётся булево true, а в противном случае — false.
-        // После извлечения объекты находятся в свойстве контроллера fetchedObjects.
         try? frc.performFetch()
     }
 
@@ -117,11 +92,9 @@ final class HistoryViewController: BaseViewController {
         present(alert, animated: true, completion: nil)
     }
 
-//    @objc func returnToMainPage() {
-//        navigationController?.popViewController(animated: true)
-//    }
 }
 
+// MARK: - UITableViewDataSource
 extension HistoryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let sections = frc.sections else { return 0 }
@@ -142,6 +115,7 @@ extension HistoryViewController: UITableViewDataSource {
 
 }
 
+// MARK: - UITableViewDelegate
 extension HistoryViewController: UITableViewDelegate {
 
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -157,6 +131,7 @@ extension HistoryViewController: UITableViewDelegate {
 	}
 }
 
+// MARK: - NSFetchedResultsControllerDelegate
 extension HistoryViewController: NSFetchedResultsControllerDelegate {
 
     // метод оповещает делегат о конце изменений

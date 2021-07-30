@@ -14,20 +14,23 @@ class BaseViewController: UIViewController {
     var isLoading = false {
         didSet {
             guard oldValue != isLoading else { return }
-            showSpinner(isShown: isLoading)
+            let isShown = showSpinner(isShown: isLoading)
+            NSLog("Spinner status - \(isShown)")
         }
     }
 
-    private func showSpinner(isShown: Bool) {
+    func showSpinner(isShown: Bool) -> Bool {
         if isShown {
             addChild(spinner)
             spinner.view.frame = view.frame
             view.addSubview(spinner.view)
             spinner.didMove(toParent: self)
+            return true
         } else {
             spinner.willMove(toParent: nil)
             spinner.view.removeFromSuperview()
             spinner.removeFromParent()
+            return false
         }
     }
 }

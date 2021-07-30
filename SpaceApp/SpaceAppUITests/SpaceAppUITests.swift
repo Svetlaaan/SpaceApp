@@ -7,36 +7,201 @@
 
 import XCTest
 
+protocol Page {
+    var app: XCUIApplication { get }
+
+    init(app: XCUIApplication)
+}
+
+class TabBarPage: Page {
+    var app: XCUIApplication
+
+    var mainButton: XCUIElement { return app.tabBars.buttons["Main"] }
+    var historyButton: XCUIElement { return app.tabBars.buttons["History"] }
+    var settingsButton: XCUIElement { return app.tabBars.buttons["Settings"] }
+
+    required init(app: XCUIApplication) {
+        self.app = app
+    }
+
+    func tapMainButton() -> MainPage {
+        mainButton.tap()
+        return MainPage(app: app)
+    }
+
+    func taphistoryButton() -> HistoryPage {
+        historyButton.tap()
+        return HistoryPage(app: app)
+    }
+
+    func tapSettingsButton() -> SettingsPage {
+        settingsButton.tap()
+        return SettingsPage(app: app)
+    }
+}
+
+class MainPage: Page {
+    var app: XCUIApplication
+
+    required init(app: XCUIApplication) {
+        self.app = app
+    }
+}
+
+class HistoryPage: Page {
+    var app: XCUIApplication
+
+    required init(app: XCUIApplication) {
+        self.app = app
+    }
+}
+
+class SettingsPage: Page {
+    var app: XCUIApplication
+
+    required init(app: XCUIApplication) {
+        self.app = app
+    }
+
+    var nameTextField: XCUIElement { return app.textFields["Enter your name"] }
+    var emailTextField: XCUIElement { return app.textFields["Enter your email"] }
+    var saveButton: XCUIElement { return app.buttons["Save"] }
+    var clearButton: XCUIElement { return app.buttons["Clear"] }
+
+    func typeName(name: String) -> Self {
+        nameTextField.tap()
+        nameTextField.typeText(name)
+        return self
+    }
+
+    func typeEmail(email: String) -> Self {
+        emailTextField.tap()
+        emailTextField.typeText(email)
+        return self
+    }
+
+    func tapSaveButton() -> Self {
+        saveButton.tap()
+        return self
+    }
+
+    func tapClearButton() -> Self {
+        clearButton.tap()
+        return self
+    }
+
+}
+
 class SpaceAppUITests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    var app: XCUIApplication!
 
-        // In UI tests it is usually best to stop immediately when a failure occurs.
+    override func setUpWithError() throws {
+        try super.setUpWithError()
         continueAfterFailure = false
 
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
+        app = XCUIApplication()
+        app.launch()
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        try super.tearDownWithError()
     }
 
-    func testExample() throws {
-        // UI tests must launch the application that they test.
-        let app = XCUIApplication()
-        app.launch()
+    func testThatWhenTappedOnTabBarButtonsScreenOfThisButtonOpened() {
 
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let tabBarPage = TabBarPage(app: app)
+        var mainButton: XCUIElement { return app.tabBars.buttons["Main"] }
+        var historyButton: XCUIElement { return app.tabBars.buttons["History"] }
+        var settingsButton: XCUIElement { return app.tabBars.buttons["Settings"] }
+
+        _ = tabBarPage
+            .tapSettingsButton()
+        XCTAssertTrue(app.navigationBars["Settings"].exists)
+
+        _ = tabBarPage
+            .taphistoryButton()
+        XCTAssertTrue(app.navigationBars["History"].exists)
+
+       _ = tabBarPage
+            .tapMainButton()
+        XCTAssertTrue(app.navigationBars["Main"].exists)
     }
 
-    func testLaunchPerformance() throws {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTApplicationLaunchMetric()]) {
-                XCUIApplication().launch()
-            }
+    func testThatTextFieldsClearedWhenClearButtonTapped() {
+        /// Arrange
+        let tabBarPage = TabBarPage(app: app)
+        let nameTextFieldPlaceholder = "Enter your name"
+        let emailTextFieldPlaceholder = "Enter your email"
+
+        /// Act
+        let settingPage = tabBarPage
+            .tapSettingsButton()
+            // очищает текстовые поля если до этого запускался
+            // тест где сохранялись данные
+            .tapClearButton()
+            .typeName(name: "Test name")
+            .typeEmail(email: "TestEmail@test.com")
+            .tapClearButton()
+
+        /// Assert
+        let nameUserText = settingPage.nameTextField.value as? String
+        let emailUserText = settingPage.emailTextField.value as? String
+        if  nameUserText == nameTextFieldPlaceholder, emailUserText == emailTextFieldPlaceholder {
+            XCTAssertFalse(nameUserText == "Test name")
+            XCTAssertFalse(emailUserText == "TestEmail@test.com")
+        } else {
+            XCTAssertTrue(nameUserText == "Test name")
+            XCTAssertTrue(emailUserText == "TestEmail@test.com")
+        }
+    }
+
+    func testThatSaveButtonEnabledWhenNameAndTextFieldsNotEmpty() {
+        /// Arrange
+        let tabBarPage = TabBarPage(app: app)
+        var saveButton: XCUIElement { return app.buttons["Save"] }
+
+        /// Act
+        let settingPage = tabBarPage
+            .tapSettingsButton()
+            // очищает текстовые поля если до этого запускался
+            // тест где сохранялись данные
+            .tapClearButton()
+            .typeName(name: "Test name")
+            .typeEmail(email: "TestEmail@test.com")
+
+        /// Assert
+        let nameUserText = settingPage.nameTextField.value as? String
+        let emailUserText = settingPage.emailTextField.value as? String
+        if  let nameUserText = nameUserText, let emailUserText = emailUserText {
+            XCTAssertTrue(nameUserText == "Test name")
+            XCTAssertTrue(emailUserText == "TestEmail@test.com")
+            XCTAssertTrue(saveButton.isEnabled)
+        }
+    }
+
+    func testThatSaveButtonDisabledWhenTappedWithNotEmptyTextFields() {
+        /// Arrange
+        let tabBarPage = TabBarPage(app: app)
+        var saveButton: XCUIElement { return app.buttons["Save"] }
+
+        /// Act
+        let settingPage = tabBarPage
+            .tapSettingsButton()
+            // очищает текстовые поля если до этого запускался
+            // тест где сохранялись данные
+            .tapClearButton()
+            .typeName(name: "Test name")
+            .typeEmail(email: "TestEmail@test.com")
+            .tapSaveButton()
+
+        /// Assert
+        let nameUserText = settingPage.nameTextField.value as? String
+        let emailUserText = settingPage.emailTextField.value as? String
+        if  let nameUserText = nameUserText, let emailUserText = emailUserText {
+            XCTAssertTrue(nameUserText == "Test name")
+            XCTAssertTrue(emailUserText == "TestEmail@test.com")
+            XCTAssertTrue(!saveButton.isEnabled)
         }
     }
 }

@@ -16,22 +16,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
-        let service = NASANetworkService()
+        let networkervice = NASANetworkService()
         let coreDataStack = Container.shared.coreDataStack
         coreDataStack.load()
 
-//        UIApplication.shared.windows.forEach { window in
-//            window.overrideUserInterfaceStyle = .dark
-//        }
-
-        // UINavigationController
-
-// window?.rootViewController = UINavigationController(rootViewController: MainViewController(networkService: service))
-        //        window?.rootViewController = UINavigationController(rootViewController: StartViewController())
-
-        // UITabBarController
-
-        let tabBarVC = TabBarController()
+        /// UITabBarController
+        let tabBarVC = TabBarController(networkService: networkervice)
         window?.rootViewController = tabBarVC
         window?.makeKeyAndVisible()
         return true

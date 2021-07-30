@@ -11,10 +11,11 @@ final class PictureOfSpaceViewController: BaseViewController {
 
     private let date: String
     private let explanation: String
-    private let networkService: NASANetworkServiceProtocol
     private let imageUrl: String
     private let photoTitle: String
+    private let networkService: NASANetworkServiceProtocol
 
+    /// UIScrollView для текста описания изображения
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -22,9 +23,16 @@ final class PictureOfSpaceViewController: BaseViewController {
         return scrollView
     }()
 
+    /// Изображение
+    private let imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+
     // MARK: - Buttons
 
-//     кнопка для возврата на главный экран
+    /// Кнопка для возврата на главный экран
     private lazy var returnToMainVC: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
@@ -33,16 +41,7 @@ final class PictureOfSpaceViewController: BaseViewController {
         return button
     }()
 
-    // кнопка для добавления в избранное
-//    lazy private var favoriteButton: UIButton = {
-//        let button = UIButton(type: .system)
-//        button.setImage(UIImage(systemName: "star.fill"), for: .normal)
-//        button.tintColor = .black
-//        button.addTarget(self, action: #selector(favoriteButtonPressed), for: .touchUpInside)
-//        return button
-//    }()
-
-    // кнопка поделиться
+    /// Кнопка "поделиться"
     lazy private var shareButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "square.and.arrow.up"), for: .normal)
@@ -53,35 +52,36 @@ final class PictureOfSpaceViewController: BaseViewController {
 
     // MARK: - Labels
 
+    /// Название изображения
     lazy var mainTitle: UILabel = {
         let mainLabel = UILabel()
         mainLabel.translatesAutoresizingMaskIntoConstraints = false
         mainLabel.text = "\(photoTitle)"
         mainLabel.font = UIFont.boldSystemFont(ofSize: 16)
-        //		mainLabel.textColor = .white
         return mainLabel
     }()
 
+    /// Дата фотографии
     lazy var dateLabel: UILabel = {
         let dateLabel = UILabel()
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         dateLabel.text = "\(date)"
         dateLabel.font = UIFont.boldSystemFont(ofSize: 20)
-        //		dateLabel.textColor = .white
         return dateLabel
     }()
 
+    /// Описание изображения
     lazy var explanationLabel: UILabel = {
         let explanationLabel = UILabel()
         explanationLabel.translatesAutoresizingMaskIntoConstraints = false
         explanationLabel.text = "\(explanation)"
         explanationLabel.textAlignment = .justified
         explanationLabel.font = UIFont.boldSystemFont(ofSize: 16)
-        //		explanationLabel.textColor = .white
         explanationLabel.numberOfLines = .min
         return explanationLabel
     }()
 
+    // MARK: - Init
     init(networkService: NASANetworkServiceProtocol,
          imageUrl: String,
          date: String,
@@ -99,21 +99,13 @@ final class PictureOfSpaceViewController: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private let imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
-
-    // MARK: - lifecycle methods
-
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = .white
-//        overrideUserInterfaceStyle = .dark
         setNavigationBarButtonItems()
-        setAutoLayout()
+        setConstraints()
         loadData()
     }
 
@@ -121,7 +113,7 @@ final class PictureOfSpaceViewController: BaseViewController {
         NSLog("ImageViewController deinit")
     }
 
-    private func setAutoLayout() {
+    private func setConstraints() {
 
         view.addSubview(mainTitle)
         NSLayoutConstraint.activate([
@@ -162,44 +154,52 @@ final class PictureOfSpaceViewController: BaseViewController {
         ])
     }
 
+    /// Настройка кнопок  для Navigation Controller
     private func setNavigationBarButtonItems() {
         let returnTo = UIBarButtonItem(customView: returnToMainVC)
-//        let addToFavorite = UIBarButtonItem(customView: favoriteButton)
         let share = UIBarButtonItem(customView: shareButton)
 
         navigationItem.setLeftBarButton(returnTo, animated: true)
         navigationItem.setRightBarButton(share, animated: true)
     }
 
-    // Нужна оптимизация загрузки изображения
+    /// Загрузка изображения
     private func loadData() {
         self.isLoading = true
-        networkService.loadImage(imageUrl: imageUrl) { data in
-            if let data = data, let image = UIImage(data: data) {
-                DispatchQueue.main.async {
-                    self.imageView.image = image
-                    self.isLoading = false
+        networkService.loadImage(imageUrl: imageUrl) { response in
+            DispatchQueue.main.async {
+                switch response {
+                case .success(let data):
+                    if let data = data {
+                        self.imageView.image = UIImage(data: data)
+                    }
+                case .failure(let error):
+                    self.showAlert(for: error)
                 }
+                self.isLoading = false
             }
         }
+    }
+
+    private func showAlert(for error: Error) {
+        let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default) { _ in
+            self.loadData()
+        } /////////////////
+
+        alert.addAction(okAction)
+        present(alert, animated: true)
     }
 
     @objc func returnToMainVCButtonPressed() {
         navigationController?.popViewController(animated: true)
     }
 
-//    @objc func favoriteButtonPressed() {
-//        NSLog("favorite button tapped")
-//        favoriteButton.tintColor = .orange
-//    }
-
     @objc func shareButtonPressed() {
         let shareController = UIActivityViewController(activityItems: [imageView.image as Any ],
                                                        applicationActivities: nil)
 
-//        shareController.excludedActivityTypes = [.postToTwitter, .postToVimeo, .saveToCameraRoll]
         shareController.popoverPresentationController?.sourceView = self.view
-        // Обработка выполнения остальных Activity Types
         shareController.completionWithItemsHandler = { activity, completed, items, error in
             NSLog("Activity: \(String(describing: activity)) Success: \(completed) Items: \(String(describing: items)) Error: \(String(describing: error))")
         }

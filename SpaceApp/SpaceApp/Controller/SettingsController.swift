@@ -13,14 +13,14 @@ final class SettingsController: BaseViewController {
 
     private lazy var backgroundView: GradientView = {
         let backgroundView = GradientView()
-        backgroundView.startColor = UIColor(red: 0.1, green: 0.25, blue: 0.5, alpha: 1)
-        backgroundView.endColor = UIColor(red: 0, green: 0.5, blue: 0.9, alpha: 1)
+        backgroundView.startColor = .darkGray
+        backgroundView.endColor = .white
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         return backgroundView
     }()
 
     private lazy var nameTextField: UITextField = {
-        let textField = UITextField(frame: CGRect(x: 0, y: 0, width: 300, height: 30))
+        let textField = UITextField(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         textField.placeholder = "Enter your name"
         textField.borderStyle = .roundedRect
         textField.layer.borderColor = UIColor.darkGray.cgColor
@@ -34,12 +34,12 @@ final class SettingsController: BaseViewController {
     }()
 
     private lazy var emailTextField: UITextField = {
-        let textField = UITextField(frame: CGRect(x: 0, y: 0, width: 300, height: 30))
+        let textField = UITextField(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         textField.placeholder = "Enter your email"
         textField.borderStyle = .roundedRect
         textField.backgroundColor = .white
         textField.textColor = .black
-        textField.keyboardType = .emailAddress
+        textField.keyboardType = .default
         textField.autocorrectionType = .no
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.delegate = self
@@ -77,7 +77,7 @@ final class SettingsController: BaseViewController {
     private lazy var clearButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = .white
-        button.setTitle("Clear data", for: .normal)
+        button.setTitle("Clear", for: .normal)
         button.tintColor = .darkGray
         button.layer.cornerRadius = 10
         button.layer.borderWidth = 2
@@ -137,13 +137,15 @@ final class SettingsController: BaseViewController {
         view.addSubview(nameTextField)
         let nameTextFieldConstraints = ([
             nameTextField.topAnchor.constraint(equalTo: nameLabel.topAnchor),
-            nameTextField.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 30)
+            nameTextField.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 30),
+            nameTextField.widthAnchor.constraint(equalToConstant: view.frame.width / 2)
         ])
 
         view.addSubview(emailTextField)
         let emailTextFieldConstraints = ([
             emailTextField.topAnchor.constraint(equalTo: emailLabel.topAnchor),
-            emailTextField.leadingAnchor.constraint(equalTo: nameTextField.leadingAnchor)
+            emailTextField.leadingAnchor.constraint(equalTo: nameTextField.leadingAnchor),
+            emailTextField.widthAnchor.constraint(equalToConstant: view.frame.width / 2)
         ])
 
         view.addSubview(saveButton)
@@ -205,7 +207,7 @@ final class SettingsController: BaseViewController {
         let emailUserInDefaults: String? = userSettings.object(for: "userEmail")
 
         if userName != nameUserInDefaults ||
-            userEmail != emailUserInDefaults { // если есть что сохранить
+            userEmail != emailUserInDefaults {
             if let userName = userName,
                !userName.isEmpty,
                userName != nameUserInDefaults {
@@ -258,6 +260,7 @@ final class SettingsController: BaseViewController {
     }
 }
 
+// MARK: - UITextFieldDelegate
 extension SettingsController: UITextFieldDelegate {
     func textField(_ textField: UITextField,
                    shouldChangeCharactersIn range: NSRange,
