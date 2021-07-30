@@ -11,9 +11,11 @@ import XCTest
 class BaseViewControllerTests: XCTestCase {
 
     override func setUpWithError() throws {
+        try super.setUpWithError()
     }
 
     override func tearDownWithError() throws {
+        try super.tearDownWithError()
     }
 
     let sut = BaseViewController()
@@ -41,4 +43,5 @@ class BaseViewControllerTests: XCTestCase {
         /// Assert
         XCTAssertFalse(result)
     }
+
 }

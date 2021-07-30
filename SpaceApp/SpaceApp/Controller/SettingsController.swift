@@ -11,6 +11,7 @@ final class SettingsController: BaseViewController {
 
     private let userSettings = UserSettingsService()
 
+    /// backgroundView
     private lazy var backgroundView: GradientView = {
         let backgroundView = GradientView()
         backgroundView.startColor = .darkGray
@@ -19,11 +20,11 @@ final class SettingsController: BaseViewController {
         return backgroundView
     }()
 
+    /// TextField для ввода имени пользователя
     private lazy var nameTextField: UITextField = {
         let textField = UITextField(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         textField.placeholder = "Enter your name"
         textField.borderStyle = .roundedRect
-        textField.layer.borderColor = UIColor.darkGray.cgColor
         textField.backgroundColor = .white
         textField.textColor = .black
         textField.keyboardType = .default
@@ -33,19 +34,21 @@ final class SettingsController: BaseViewController {
         return textField
     }()
 
+    /// TextField для ввода email пользователя
     private lazy var emailTextField: UITextField = {
         let textField = UITextField(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         textField.placeholder = "Enter your email"
         textField.borderStyle = .roundedRect
         textField.backgroundColor = .white
         textField.textColor = .black
-        textField.keyboardType = .default
+        textField.keyboardType = .emailAddress
         textField.autocorrectionType = .no
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.delegate = self
         return textField
     }()
 
+    /// UILabel
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.text = "Name *"
@@ -55,6 +58,7 @@ final class SettingsController: BaseViewController {
         return label
     }()
 
+    /// UILabel
     private lazy var emailLabel: UILabel = {
         let label = UILabel()
         label.text = "Email *"
@@ -64,16 +68,17 @@ final class SettingsController: BaseViewController {
         return label
     }()
 
-    /// кнопка "О приложении"
-    private lazy var aboutAppButton: UIButton = {
+    /// кнопка "О разработчике"
+    private lazy var aboutDevButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "info.circle.fill"), for: .normal)
         button.tintColor = .black
-        button.addTarget(self, action: #selector(aboutAppButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(aboutDevButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
 
+    /// кнопка "Очистить историю"
     private lazy var clearButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = .white
@@ -88,6 +93,7 @@ final class SettingsController: BaseViewController {
         return button
     }()
 
+    /// кнопка "Сохранить"
     private lazy var saveButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = .white
@@ -102,18 +108,25 @@ final class SettingsController: BaseViewController {
         return button
     }()
 
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
         title = "Settings"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: aboutAppButton)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: aboutDevButton)
         view.backgroundColor = .white
-        setAutoLayout()
+
+        setLabelAndBackgroundViewConstraints()
+        setTextFieldConstraints()
+        setButtonsConstraints()
         setTextLabel()
         setStatusButton()
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view,
+                                                              action: #selector(UIView.endEditing(_:))))
     }
 
-    private func setAutoLayout() {
+    // MARK: - Methods
+    private func setLabelAndBackgroundViewConstraints() {
         view.addSubview(backgroundView)
         let backgroundViewConstraints = ([
             backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -134,6 +147,12 @@ final class SettingsController: BaseViewController {
             emailLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor)
         ])
 
+        NSLayoutConstraint.activate(backgroundViewConstraints)
+        NSLayoutConstraint.activate(nameLabelConstraints)
+        NSLayoutConstraint.activate(emailLabelConstraints)
+    }
+
+    private func setTextFieldConstraints() {
         view.addSubview(nameTextField)
         let nameTextFieldConstraints = ([
             nameTextField.topAnchor.constraint(equalTo: nameLabel.topAnchor),
@@ -148,27 +167,27 @@ final class SettingsController: BaseViewController {
             emailTextField.widthAnchor.constraint(equalToConstant: view.frame.width / 2)
         ])
 
+        NSLayoutConstraint.activate(nameTextFieldConstraints)
+        NSLayoutConstraint.activate(emailTextFieldConstraints)
+    }
+
+    private func setButtonsConstraints() {
         view.addSubview(saveButton)
         let saveButtonConstraints = ([
             saveButton.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: view.frame.height / 10),
-            saveButton.leadingAnchor.constraint(equalTo: emailLabel.trailingAnchor),
-            saveButton.widthAnchor.constraint(equalToConstant: view.frame.width / 4),
+            saveButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: view.frame.width / 10),
+            saveButton.widthAnchor.constraint(equalToConstant: view.frame.width / 3),
             saveButton.heightAnchor.constraint(equalToConstant: 40)
         ])
 
         view.addSubview(clearButton)
         let clearButtonConstraints = ([
             clearButton.topAnchor.constraint(equalTo: saveButton.topAnchor),
-            clearButton.leadingAnchor.constraint(equalTo: saveButton.trailingAnchor, constant: 30),
-            clearButton.widthAnchor.constraint(equalToConstant: view.frame.width / 4),
+            clearButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -(view.frame.width / 10)),
+            clearButton.widthAnchor.constraint(equalToConstant: view.frame.width / 3),
             clearButton.heightAnchor.constraint(equalToConstant: 40)
         ])
 
-        NSLayoutConstraint.activate(backgroundViewConstraints)
-        NSLayoutConstraint.activate(nameTextFieldConstraints)
-        NSLayoutConstraint.activate(emailTextFieldConstraints)
-        NSLayoutConstraint.activate(nameLabelConstraints)
-        NSLayoutConstraint.activate(emailLabelConstraints)
         NSLayoutConstraint.activate(saveButtonConstraints)
         NSLayoutConstraint.activate(clearButtonConstraints)
     }
@@ -195,7 +214,7 @@ final class SettingsController: BaseViewController {
         }
     }
 
-    @objc func aboutAppButtonTapped() {
+    @objc func aboutDevButtonTapped() {
         let aboutController = AboutViewController()
         navigationController?.pushViewController(aboutController, animated: true)
     }

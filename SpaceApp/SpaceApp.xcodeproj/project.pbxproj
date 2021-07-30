@@ -11,7 +11,6 @@
 		FA16625E26A72ABF00450794 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA16625D26A72ABF00450794 /* SceneDelegate.swift */; };
 		FA16626626A72ABF00450794 /* SpaceApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FA16626426A72ABF00450794 /* SpaceApp.xcdatamodeld */; };
 		FA16626826A72AC200450794 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA16626726A72AC200450794 /* Assets.xcassets */; };
-		FA16627626A72AC200450794 /* SpaceAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA16627526A72AC200450794 /* SpaceAppTests.swift */; };
 		FA16628126A72AC200450794 /* SpaceAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA16628026A72AC200450794 /* SpaceAppUITests.swift */; };
 		FA1662A726A72C1000450794 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1662A626A72C1000450794 /* MainViewController.swift */; };
 		FA1662AF26A72C3300450794 /* SpinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1662AE26A72C3300450794 /* SpinnerViewController.swift */; };
@@ -33,8 +32,9 @@
 		FA16639526AC505200450794 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA16639426AC505200450794 /* TabBarController.swift */; };
 		FA1663B526AC871E00450794 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1663B426AC871E00450794 /* SettingsController.swift */; };
 		FA1663C026AC9BC500450794 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1663BF26AC9BC500450794 /* GradientView.swift */; };
+		FAACA81B26B4767200F779FB /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = FAACA81A26B4767200F779FB /* SnapshotTesting */; settings = {ATTRIBUTES = (Required, ); }; };
+		FAACA84426B4967600F779FB /* UserSettingsServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAACA84326B4967600F779FB /* UserSettingsServiceTest.swift */; };
 		FAB01A9B26B1C44D00DDD2AA /* BaseViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB01A9A26B1C44D00DDD2AA /* BaseViewControllerTests.swift */; };
-		FAB01AB826B1D14000DDD2AA /* MainViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB01AB726B1D14000DDD2AA /* MainViewControllerTests.swift */; };
 		FAB01AD526B1E52E00DDD2AA /* UserSettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA16633826AAC9FD00450794 /* UserSettingsService.swift */; };
 		FAB01B1126B1F18900DDD2AA /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1662B326A72C5500450794 /* BaseViewController.swift */; };
 		FAB01B1526B1F1A000DDD2AA /* SpinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1662AE26A72C3300450794 /* SpinnerViewController.swift */; };
@@ -42,8 +42,7 @@
 		FAB01B2126B1F68000DDD2AA /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1663B426AC871E00450794 /* SettingsController.swift */; };
 		FAB01B2526B1F69200DDD2AA /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1663BF26AC9BC500450794 /* GradientView.swift */; };
 		FAB01B2926B1F6B700DDD2AA /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1662BD26A72C8B00450794 /* AboutViewController.swift */; };
-		FAB01BEE26B3747400DDD2AA /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = FAB01BED26B3747400DDD2AA /* SnapshotTesting */; };
-		FAB01BF926B3756500DDD2AA /* SpaceAppSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB01BF826B3756500DDD2AA /* SpaceAppSnapshotTests.swift */; };
+		FAB01C3926B46D3100DDD2AA /* SpaceAppSnapshotsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB01C3826B46D3100DDD2AA /* SpaceAppSnapshotsTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,7 +60,7 @@
 			remoteGlobalIDString = FA16625726A72ABF00450794;
 			remoteInfo = SpaceApp;
 		};
-		FAB01BFB26B3756500DDD2AA /* PBXContainerItemProxy */ = {
+		FAB01C3B26B46D3100DDD2AA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = FA16625026A72ABF00450794 /* Project object */;
 			proxyType = 1;
@@ -78,7 +77,6 @@
 		FA16626726A72AC200450794 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FA16626C26A72AC200450794 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA16627126A72AC200450794 /* SpaceAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpaceAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		FA16627526A72AC200450794 /* SpaceAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceAppTests.swift; sourceTree = "<group>"; };
 		FA16627726A72AC200450794 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA16627C26A72AC200450794 /* SpaceAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpaceAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA16628026A72AC200450794 /* SpaceAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceAppUITests.swift; sourceTree = "<group>"; };
@@ -103,12 +101,12 @@
 		FA16639426AC505200450794 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		FA1663B426AC871E00450794 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		FA1663BF26AC9BC500450794 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		FAACA84326B4967600F779FB /* UserSettingsServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsServiceTest.swift; sourceTree = "<group>"; };
 		FAB01A9A26B1C44D00DDD2AA /* BaseViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewControllerTests.swift; sourceTree = "<group>"; };
-		FAB01AB726B1D14000DDD2AA /* MainViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerTests.swift; sourceTree = "<group>"; };
 		FAB01B1926B1F36C00DDD2AA /* CoreDataStackProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStackProtocol.swift; sourceTree = "<group>"; };
-		FAB01BF626B3756500DDD2AA /* SpaceAppSnapshotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpaceAppSnapshotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		FAB01BF826B3756500DDD2AA /* SpaceAppSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceAppSnapshotTests.swift; sourceTree = "<group>"; };
-		FAB01BFA26B3756500DDD2AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FAB01C3626B46D3100DDD2AA /* SpaceAppSnapshotsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpaceAppSnapshotsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAB01C3826B46D3100DDD2AA /* SpaceAppSnapshotsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceAppSnapshotsTests.swift; sourceTree = "<group>"; };
+		FAB01C3A26B46D3100DDD2AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,7 +114,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAB01BEE26B3747400DDD2AA /* SnapshotTesting in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,10 +131,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FAB01BF326B3756500DDD2AA /* Frameworks */ = {
+		FAB01C3326B46D3100DDD2AA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAACA81B26B4767200F779FB /* SnapshotTesting in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,8 +148,9 @@
 				FA16625A26A72ABF00450794 /* SpaceApp */,
 				FA16627426A72AC200450794 /* SpaceAppTests */,
 				FA16627F26A72AC200450794 /* SpaceAppUITests */,
-				FAB01BF726B3756500DDD2AA /* SpaceAppSnapshotTests */,
+				FAB01C3726B46D3100DDD2AA /* SpaceAppSnapshotsTests */,
 				FA16625926A72ABF00450794 /* Products */,
+				FAB01C2226B469F200DDD2AA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -161,7 +160,7 @@
 				FA16625826A72ABF00450794 /* SpaceApp.app */,
 				FA16627126A72AC200450794 /* SpaceAppTests.xctest */,
 				FA16627C26A72AC200450794 /* SpaceAppUITests.xctest */,
-				FAB01BF626B3756500DDD2AA /* SpaceAppSnapshotTests.xctest */,
+				FAB01C3626B46D3100DDD2AA /* SpaceAppSnapshotsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -183,10 +182,9 @@
 		FA16627426A72AC200450794 /* SpaceAppTests */ = {
 			isa = PBXGroup;
 			children = (
-				FA16627526A72AC200450794 /* SpaceAppTests.swift */,
 				FA16627726A72AC200450794 /* Info.plist */,
 				FAB01A9A26B1C44D00DDD2AA /* BaseViewControllerTests.swift */,
-				FAB01AB726B1D14000DDD2AA /* MainViewControllerTests.swift */,
+				FAACA84326B4967600F779FB /* UserSettingsServiceTest.swift */,
 			);
 			path = SpaceAppTests;
 			sourceTree = "<group>";
@@ -275,13 +273,20 @@
 			path = Other;
 			sourceTree = "<group>";
 		};
-		FAB01BF726B3756500DDD2AA /* SpaceAppSnapshotTests */ = {
+		FAB01C2226B469F200DDD2AA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FAB01BF826B3756500DDD2AA /* SpaceAppSnapshotTests.swift */,
-				FAB01BFA26B3756500DDD2AA /* Info.plist */,
 			);
-			path = SpaceAppSnapshotTests;
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FAB01C3726B46D3100DDD2AA /* SpaceAppSnapshotsTests */ = {
+			isa = PBXGroup;
+			children = (
+				FAB01C3826B46D3100DDD2AA /* SpaceAppSnapshotsTests.swift */,
+				FAB01C3A26B46D3100DDD2AA /* Info.plist */,
+			);
+			path = SpaceAppSnapshotsTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -302,7 +307,6 @@
 			);
 			name = SpaceApp;
 			packageProductDependencies = (
-				FAB01BED26B3747400DDD2AA /* SnapshotTesting */,
 			);
 			productName = SpaceApp;
 			productReference = FA16625826A72ABF00450794 /* SpaceApp.app */;
@@ -344,22 +348,25 @@
 			productReference = FA16627C26A72AC200450794 /* SpaceAppUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		FAB01BF526B3756500DDD2AA /* SpaceAppSnapshotTests */ = {
+		FAB01C3526B46D3100DDD2AA /* SpaceAppSnapshotsTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FAB01BFD26B3756500DDD2AA /* Build configuration list for PBXNativeTarget "SpaceAppSnapshotTests" */;
+			buildConfigurationList = FAB01C3D26B46D3100DDD2AA /* Build configuration list for PBXNativeTarget "SpaceAppSnapshotsTests" */;
 			buildPhases = (
-				FAB01BF226B3756500DDD2AA /* Sources */,
-				FAB01BF326B3756500DDD2AA /* Frameworks */,
-				FAB01BF426B3756500DDD2AA /* Resources */,
+				FAB01C3226B46D3100DDD2AA /* Sources */,
+				FAB01C3326B46D3100DDD2AA /* Frameworks */,
+				FAB01C3426B46D3100DDD2AA /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				FAB01BFC26B3756500DDD2AA /* PBXTargetDependency */,
+				FAB01C3C26B46D3100DDD2AA /* PBXTargetDependency */,
 			);
-			name = SpaceAppSnapshotTests;
-			productName = SpaceAppSnapshotTests;
-			productReference = FAB01BF626B3756500DDD2AA /* SpaceAppSnapshotTests.xctest */;
+			name = SpaceAppSnapshotsTests;
+			packageProductDependencies = (
+				FAACA81A26B4767200F779FB /* SnapshotTesting */,
+			);
+			productName = SpaceAppSnapshotsTests;
+			productReference = FAB01C3626B46D3100DDD2AA /* SpaceAppSnapshotsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -381,7 +388,7 @@
 						CreatedOnToolsVersion = 12.4;
 						TestTargetID = FA16625726A72ABF00450794;
 					};
-					FAB01BF526B3756500DDD2AA = {
+					FAB01C3526B46D3100DDD2AA = {
 						CreatedOnToolsVersion = 12.4;
 						TestTargetID = FA16625726A72ABF00450794;
 					};
@@ -397,7 +404,7 @@
 			);
 			mainGroup = FA16624F26A72ABF00450794;
 			packageReferences = (
-				FAB01BEC26B3747400DDD2AA /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
+				FAB01C2726B46C1D00DDD2AA /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
 			);
 			productRefGroup = FA16625926A72ABF00450794 /* Products */;
 			projectDirPath = "";
@@ -406,7 +413,7 @@
 				FA16625726A72ABF00450794 /* SpaceApp */,
 				FA16627026A72AC200450794 /* SpaceAppTests */,
 				FA16627B26A72AC200450794 /* SpaceAppUITests */,
-				FAB01BF526B3756500DDD2AA /* SpaceAppSnapshotTests */,
+				FAB01C3526B46D3100DDD2AA /* SpaceAppSnapshotsTests */,
 			);
 		};
 /* End PBXProject section */
@@ -434,7 +441,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FAB01BF426B3756500DDD2AA /* Resources */ = {
+		FAB01C3426B46D3100DDD2AA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -500,11 +507,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAB01B1126B1F18900DDD2AA /* BaseViewController.swift in Sources */,
-				FA16627626A72AC200450794 /* SpaceAppTests.swift in Sources */,
+				FAACA84426B4967600F779FB /* UserSettingsServiceTest.swift in Sources */,
 				FAB01A9B26B1C44D00DDD2AA /* BaseViewControllerTests.swift in Sources */,
 				FAB01B2926B1F6B700DDD2AA /* AboutViewController.swift in Sources */,
 				FAB01B2126B1F68000DDD2AA /* SettingsController.swift in Sources */,
-				FAB01AB826B1D14000DDD2AA /* MainViewControllerTests.swift in Sources */,
 				FAB01B1526B1F1A000DDD2AA /* SpinnerViewController.swift in Sources */,
 				FAB01B2526B1F69200DDD2AA /* GradientView.swift in Sources */,
 				FAB01AD526B1E52E00DDD2AA /* UserSettingsService.swift in Sources */,
@@ -519,11 +525,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FAB01BF226B3756500DDD2AA /* Sources */ = {
+		FAB01C3226B46D3100DDD2AA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAB01BF926B3756500DDD2AA /* SpaceAppSnapshotTests.swift in Sources */,
+				FAB01C3926B46D3100DDD2AA /* SpaceAppSnapshotsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -540,10 +546,10 @@
 			target = FA16625726A72ABF00450794 /* SpaceApp */;
 			targetProxy = FA16627D26A72AC200450794 /* PBXContainerItemProxy */;
 		};
-		FAB01BFC26B3756500DDD2AA /* PBXTargetDependency */ = {
+		FAB01C3C26B46D3100DDD2AA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = FA16625726A72ABF00450794 /* SpaceApp */;
-			targetProxy = FAB01BFB26B3756500DDD2AA /* PBXContainerItemProxy */;
+			targetProxy = FAB01C3B26B46D3100DDD2AA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -671,7 +677,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 33V6XLTW6T;
-				ENABLE_TESTING_SEARCH_PATHS = YES;
+				ENABLE_TESTING_SEARCH_PATHS = NO;
 				INFOPLIST_FILE = SpaceApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -691,7 +697,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 33V6XLTW6T;
-				ENABLE_TESTING_SEARCH_PATHS = YES;
+				ENABLE_TESTING_SEARCH_PATHS = NO;
 				INFOPLIST_FILE = SpaceApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -786,20 +792,20 @@
 			};
 			name = Release;
 		};
-		FAB01BFE26B3756500DDD2AA /* Debug */ = {
+		FAB01C3E26B46D3100DDD2AA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 33V6XLTW6T;
-				INFOPLIST_FILE = SpaceAppSnapshotTests/Info.plist;
+				INFOPLIST_FILE = SpaceAppSnapshotsTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = SvetlanaFomina.SpaceAppSnapshotTests;
+				PRODUCT_BUNDLE_IDENTIFIER = SvetlanaFomina.SpaceAppSnapshotsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -807,20 +813,20 @@
 			};
 			name = Debug;
 		};
-		FAB01BFF26B3756500DDD2AA /* Release */ = {
+		FAB01C3F26B46D3100DDD2AA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 33V6XLTW6T;
-				INFOPLIST_FILE = SpaceAppSnapshotTests/Info.plist;
+				INFOPLIST_FILE = SpaceAppSnapshotsTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = SvetlanaFomina.SpaceAppSnapshotTests;
+				PRODUCT_BUNDLE_IDENTIFIER = SvetlanaFomina.SpaceAppSnapshotsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -867,11 +873,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FAB01BFD26B3756500DDD2AA /* Build configuration list for PBXNativeTarget "SpaceAppSnapshotTests" */ = {
+		FAB01C3D26B46D3100DDD2AA /* Build configuration list for PBXNativeTarget "SpaceAppSnapshotsTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				FAB01BFE26B3756500DDD2AA /* Debug */,
-				FAB01BFF26B3756500DDD2AA /* Release */,
+				FAB01C3E26B46D3100DDD2AA /* Debug */,
+				FAB01C3F26B46D3100DDD2AA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -879,20 +885,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		FAB01BEC26B3747400DDD2AA /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
+		FAB01C2726B46C1D00DDD2AA /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.8.1;
+				minimumVersion = 1.9.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		FAB01BED26B3747400DDD2AA /* SnapshotTesting */ = {
+		FAACA81A26B4767200F779FB /* SnapshotTesting */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FAB01BEC26B3747400DDD2AA /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
+			package = FAB01C2726B46C1D00DDD2AA /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
 			productName = SnapshotTesting;
 		};
 /* End XCSwiftPackageProductDependency section */

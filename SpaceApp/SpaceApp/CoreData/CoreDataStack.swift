@@ -17,6 +17,7 @@ final class CoreDataStack: CoreDataStackProtocol {
         self.container = container
     }
 
+    /// Загрузка
     func load() {
         container.loadPersistentStores { _, error in
             if let error = error {
@@ -25,6 +26,7 @@ final class CoreDataStack: CoreDataStackProtocol {
         }
     }
 
+    /// Удаление всех записей
     func deleteAll() {
         let fetchRequest = NSFetchRequest<MOSpacePhoto>(entityName: "MOSpacePhoto")
         backgroundContext.performAndWait {

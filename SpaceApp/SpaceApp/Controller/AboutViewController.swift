@@ -29,41 +29,37 @@ final class AboutViewController: BaseViewController {
         return imageView
     }()
 
+    /// Контактные данные разработчика
+    private lazy var contactsImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "contacts")
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "About app"
+        title = "About developer"
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: returnToMainVC)
-        setAutoLayout()
-        //		startAnimation()
+        setConstraints()
     }
 
-    private func setAutoLayout() {
+    // MARK: - Methods
+    private func setConstraints() {
         view.addSubview(backgroundImageView)
+        backgroundImageView.addSubview(contactsImageView)
+
+        let contactsImageViewConstraints = ([
+            contactsImageView.widthAnchor.constraint(equalToConstant: 300),
+            contactsImageView.heightAnchor.constraint(equalToConstant: 200),
+            contactsImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            contactsImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+
+        NSLayoutConstraint.activate(contactsImageViewConstraints)
     }
-
-//    func startAnimation() {
-//
-//        let textAnimation = CAKeyframeAnimation(keyPath: "position")
-//        let duration = 20.0
-//
-//        let pathArray = [[view.frame.width / 2, view.frame.height], [view.frame.width / 2, -100]]
-//        textAnimation.values = pathArray
-//        textAnimation.duration = duration
-//        textAnimation.repeatCount = 0
-//        aboutLabel.layer.add(textAnimation, forKey: "textPosition")
-//
-//        Timer.scheduledTimer(timeInterval: TimeInterval(duration + 1.0),
-//                             target: self,
-//                             selector: #selector(contactInfo),
-//                             userInfo: nil, repeats: false)
-//    }
-
-//    @objc func contactInfo() {
-//        aboutLabel.isHidden = true
-//        contactsImageView.isHidden = false
-//    }
 
     @objc func returnToMainPage() {
         navigationController?.popViewController(animated: true)

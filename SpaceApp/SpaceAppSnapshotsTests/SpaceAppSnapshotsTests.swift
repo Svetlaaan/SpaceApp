@@ -1,6 +1,6 @@
 //
-//  SpaceAppSnapshotTests.swift
-//  SpaceAppSnapshotTests
+//  SpaceAppSnapshotsTests.swift
+//  SpaceAppSnapshotsTests
 //
 //  Created by Svetlana Fomina on 30.07.2021.
 //
@@ -13,9 +13,7 @@ import SnapshotTesting
 class SettingsViewControllerSnapshotTest: XCTestCase {
 
     func testSettingsViewControllerSnapshot() throws {
-        // isRecording = true - to record all new references
-        // isRecording = false - not to record all new references
-//        isRecording = true
+        // isRecording - Whether or not to record all new references.
         let sut = SettingsController()
         assertSnapshot(matching: sut, as: .image(on: .iPhoneX))
     }

@@ -26,7 +26,7 @@ final class HistoryViewController: BaseViewController {
         return frc
     }()
 
-    /// кнопка "Очистить историю"
+    /// Кнопка "Очистить историю"
     private lazy var clearHistoryButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "trash.circle.fill"), for: .normal)
@@ -37,12 +37,13 @@ final class HistoryViewController: BaseViewController {
     }()
 
     /// Table View
-    private lazy var tableView: UITableView = {
+    private lazy var tableView: UITableView! = {
         let tableView = UITableView()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "HistoryCell")
         tableView.dataSource = self
         tableView.delegate = self
         tableView.showsVerticalScrollIndicator = false
+        tableView.accessibilityIdentifier = "History table view"
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -54,7 +55,7 @@ final class HistoryViewController: BaseViewController {
         title = "History"
         view.backgroundColor = .systemGray
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: clearHistoryButton)
-        setAutoLayout()
+        setConstraints()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -63,7 +64,8 @@ final class HistoryViewController: BaseViewController {
         try? frc.performFetch()
     }
 
-    private func setAutoLayout() {
+    // MARK: - Methods
+    private func setConstraints() {
         view.addSubview(tableView)
         let tableViewConstraints = ([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -77,7 +79,7 @@ final class HistoryViewController: BaseViewController {
 
     @objc func clearHistoryButtonTapped() {
         let alert = UIAlertController(title: "Clear history",
-                                      message: "Are you really want to clear all history?",
+                                      message: "Clear all history?",
                                       preferredStyle: .alert)
         let yesAction = UIAlertAction(title: "Yes", style: .destructive) { _ in
             self.coreDataStack.deleteAll()
@@ -90,6 +92,7 @@ final class HistoryViewController: BaseViewController {
         alert.addAction(cancelAction)
 
         present(alert, animated: true, completion: nil)
+        NSLog("Clear history button tapped")
     }
 
 }
@@ -134,7 +137,6 @@ extension HistoryViewController: UITableViewDelegate {
 // MARK: - NSFetchedResultsControllerDelegate
 extension HistoryViewController: NSFetchedResultsControllerDelegate {
 
-    // метод оповещает делегат о конце изменений
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         DispatchQueue.main.async {
             self.tableView.reloadData()

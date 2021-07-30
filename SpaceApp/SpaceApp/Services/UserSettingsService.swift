@@ -21,14 +21,16 @@ final class UserSettingsService {
         self.init(userDefaults: UserDefaults.standard)
     }
 
+    /// Сохранение объекта
     func save<T: Encodable>(object: T, for key: String) {
         guard let data = try? encoder.encode(object) else {
-            return // добавить throw чтобы понимать что ошибка
+            return
         }
         defaults.setValue(data, forKey: key)
         NSLog("object: \(object) was added for key: \(key)")
     }
 
+    /// Получение объекта по ключу
     func object<T: Decodable>(for key: String) -> T? {
         guard let data = defaults.data(forKey: key) else {
             return nil
@@ -36,6 +38,7 @@ final class UserSettingsService {
         return try? decoder.decode(T.self, from: data)
     }
 
+    /// Удаление объекта по ключу
     func removeObjectForKey(for key: String) {
         UserDefaults.standard.removeObject(forKey: key)
         NSLog("object for key \(key) removed")

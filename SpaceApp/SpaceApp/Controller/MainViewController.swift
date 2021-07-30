@@ -58,7 +58,7 @@ class MainViewController: BaseViewController {
         return tableView
     }()
 
-    // MARK: - Lifecycle methods
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -73,7 +73,6 @@ class MainViewController: BaseViewController {
     }
 
     // MARK: - Methods
-
     private func setConstraints() {
         view.addSubview(spaceshipImageView)
         let spaceshipImageViewConstraints = ([
@@ -128,17 +127,11 @@ class MainViewController: BaseViewController {
         let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "Ok", style: .default) { _ in
             self.loadData()
-        } ////////
+        }
 
         alert.addAction(okAction)
         present(alert, animated: true)
     }
-
-    @objc func historyButtonTapped() {
-        let historyController = HistoryViewController()
-        navigationController?.pushViewController(historyController, animated: true)
-    }
-
 }
 
 // MARK: - UITableViewDataSource
@@ -166,16 +159,6 @@ extension MainViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-//        coreDataStack.backgroundContext.performAndWait {
-//            let request = NSFetchRequest<MOSpacePhoto>(entityName: "MOSpacePhoto")
-//            request.predicate = NSPredicate(format: "title == %@", dataSource[indexPath.row].title)
-//            let result = try? request.execute()
-//            if let result = result {
-//                NSLog( "double rec")
-//                return
-//            }
-//        }
-
         /// синхронное сохранения данных о просмотренном изображении в Core Data
         coreDataStack.backgroundContext.performAndWait {
             let spacePhoto = MOSpacePhoto(context: coreDataStack.backgroundContext)
@@ -184,25 +167,15 @@ extension MainViewController: UITableViewDelegate {
             spacePhoto.title = "\(dataSource[indexPath.row].title)"
             spacePhoto.url = "\(dataSource[indexPath.row].url)"
             try? coreDataStack.backgroundContext.save()
-
-            // DEBUG PRINT
-            debugPrint("New - \(spacePhoto.title)")
-            let context = coreDataStack.viewContext
-            context.performAndWait {
-                let request = NSFetchRequest<MOSpacePhoto>(entityName: "MOSpacePhoto")
-                let result = try? request.execute()
-                result?.forEach {
-                    debugPrint($0.title)
-                }
-            }
         }
 
         /// переход на экран для просмотра изображения и его описания
-        let pictureOfSpaceViewController = PictureOfSpaceViewController(networkService: networkService,
-                                                                        imageUrl: dataSource[indexPath.row].url,
-                                                                        date: dataSource[indexPath.row].date,
-                                                                        explanation: dataSource[indexPath.row].explanation,
-                                                                        photoTitle: dataSource[indexPath.row].title)
-        navigationController?.pushViewController(pictureOfSpaceViewController, animated: true)
+        let pictureOfSpaceVC =
+            PictureOfSpaceViewController(networkService: networkService,
+                                         imageUrl: dataSource[indexPath.row].url,
+                                         date: dataSource[indexPath.row].date,
+                                         explanation: dataSource[indexPath.row].explanation,
+                                         photoTitle: dataSource[indexPath.row].title)
+        navigationController?.pushViewController(pictureOfSpaceVC, animated: true)
     }
 }

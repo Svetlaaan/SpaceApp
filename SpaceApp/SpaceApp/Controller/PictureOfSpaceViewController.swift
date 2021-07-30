@@ -30,8 +30,6 @@ final class PictureOfSpaceViewController: BaseViewController {
         return imageView
     }()
 
-    // MARK: - Buttons
-
     /// Кнопка для возврата на главный экран
     private lazy var returnToMainVC: UIButton = {
         let button = UIButton(type: .system)
@@ -49,8 +47,6 @@ final class PictureOfSpaceViewController: BaseViewController {
         button.addTarget(self, action: #selector(shareButtonPressed), for: .touchUpInside)
         return button
     }()
-
-    // MARK: - Labels
 
     /// Название изображения
     lazy var mainTitle: UILabel = {
@@ -113,44 +109,43 @@ final class PictureOfSpaceViewController: BaseViewController {
         NSLog("ImageViewController deinit")
     }
 
+    // MARK: - Methods
     private func setConstraints() {
-
-        view.addSubview(mainTitle)
+        view.addSubview(scrollView)
         NSLayoutConstraint.activate([
-            mainTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            mainTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20)
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
 
-        view.addSubview(dateLabel)
+        scrollView.addSubview(mainTitle)
         NSLayoutConstraint.activate([
-            dateLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            mainTitle.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            mainTitle.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 20)
+        ])
+
+        scrollView.addSubview(dateLabel)
+        NSLayoutConstraint.activate([
+            dateLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             dateLabel.topAnchor.constraint(equalTo: mainTitle.topAnchor, constant: 50)
         ])
 
-        view.addSubview(imageView)
+        scrollView.addSubview(imageView)
         NSLayoutConstraint.activate([
-            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+            imageView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 30),
+            imageView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -30),
             imageView.heightAnchor.constraint(equalToConstant: 300),
-            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            imageView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             imageView.topAnchor.constraint(equalTo: dateLabel.topAnchor, constant: 50)
-        ])
-
-        view.addSubview(scrollView)
-        NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
-            scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30)
         ])
 
         scrollView.addSubview(explanationLabel)
         NSLayoutConstraint.activate([
-            explanationLabel.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            explanationLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 50),
             explanationLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             explanationLabel.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            explanationLabel.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+            explanationLabel.widthAnchor.constraint(equalTo: imageView.widthAnchor)
         ])
     }
 
@@ -185,7 +180,7 @@ final class PictureOfSpaceViewController: BaseViewController {
         let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "Ok", style: .default) { _ in
             self.loadData()
-        } /////////////////
+        }
 
         alert.addAction(okAction)
         present(alert, animated: true)
@@ -200,8 +195,8 @@ final class PictureOfSpaceViewController: BaseViewController {
                                                        applicationActivities: nil)
 
         shareController.popoverPresentationController?.sourceView = self.view
-        shareController.completionWithItemsHandler = { activity, completed, items, error in
-            NSLog("Activity: \(String(describing: activity)) Success: \(completed) Items: \(String(describing: items)) Error: \(String(describing: error))")
+        shareController.completionWithItemsHandler = { activity, completed, _, error in
+            NSLog("Activity: \(String(describing: activity)) Success: \(completed) Error: \(String(describing: error))")
         }
         self.present(shareController, animated: true, completion: nil)
     }

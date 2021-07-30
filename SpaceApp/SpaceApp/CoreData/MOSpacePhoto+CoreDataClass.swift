@@ -10,5 +10,4 @@ import Foundation
 import CoreData
 
 @objc(MOSpacePhoto)
-public class MOSpacePhoto: NSManagedObject {
-}
+public class MOSpacePhoto: NSManagedObject {}
